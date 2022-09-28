@@ -1,0 +1,55 @@
+<div id="usersummary">
+    <h2>Candidate Summary</h2>
+    <div class="row">
+        <div class="col">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Name" autocomplete="off">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-3 candidateprofile" *ngFor="let user of arraydata; let i = index">
+            <div class="card paddingspace">
+                <div class="roundimage">
+                    <img src="{{user.image}}" alt="image" class="userimageprofile">
+                </div>
+                <!-- <div class="profiledata">
+                    <table>
+                        <tr>
+                            <td>{{user.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{user.designation}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{user.mobile}}</td>
+                        </tr>
+                    </table>
+                </div> -->
+                <!-- <br> -->
+                <div class="profiledata">
+                    <h1>{{user.name}}</h1>
+                <p class="title">{{user.designation}}</p>
+                <p class="mobilenotitle">{{user.mobile}}</p>
+                </div>
+                
+                <div class="menumore">
+                    <span class="material-icons" [matMenuTriggerFor]="menu1" >
+                        more_vert   </span>
+                        <mat-menu  #menu1="matMenu">
+                            <button (click)="editscreen()" mat-menu-item>Edit</button>
+                            <button (click)="viewScreen()" mat-menu-item>View</button>
+                        </mat-menu>
+                </div>
+                <div class="bookmarkicon">
+                    <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon">
+                        <mat-icon>bookmark</mat-icon>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

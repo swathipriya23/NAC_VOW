@@ -1,0 +1,83 @@
+<div class="container-fluid"  *ngIf="vowService.isAuthenticated == false">
+
+    <div class="row boxrow">
+      <div class="col-sm-0 col-md-0 col-lg-8 leftpart">
+        <div class="borderdesign"></div>
+        <div class="circle">
+          <div class="profile">
+            <span class="material-icons">
+              person
+            </span>
+          </div>
+        </div>
+        
+  
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-4 rightpart">
+        <div class="mobileview svgpart">
+        <svg viewBox="0 0 500 500"
+        preserveAspectRatio="xMinYMin meet">
+         
+        <path d="M0, 100 C150, 200 350,
+            0 500, 100 L500, 00 L0, 0 Z"
+            style="stroke:none; fill:#3866f276;">
+        </path>
+        <path d="M0, 80 C300, 0 400,
+                  300 500, 50 L500, 00 L0, 0 Z"
+                  style="stroke: none;
+                  fill:#00746385;;">
+        </path>
+    </svg>
+    </div>
+        <div class="col-sm-12 col-md-12 col-lg-11 loginform">
+          <h2 class="headerNameLogin">Sign up</h2>
+          <form [formGroup]="signupForm">
+            <!-- <div class="form-group">
+              <label for="UserCode">User Code</label>
+              <input type="text" class="form-control" id="UserCode" aria-describedby="CodeHelp" autocomplete="off"
+                placeholder="Enter Code" formControlName="user">
+              <small id="CodeHelp" class="smallpixel">We'll never share your Code with anyone else.</small>
+            </div>
+            <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.user">
+                <div class="error-message"
+                  *ngIf="VowloginForm.get('user').hasError(error.type) && (VowloginForm.get('user').dirty || VowloginForm.get('user').touched)">
+                  {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="off"
+                placeholder="Password" formControlName="password">
+            </div>
+            <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.password">
+                <div class="error-message"
+                  *ngIf="VowloginForm.get('password').hasError(error.type) && (VowloginForm.get('password').dirty || VowloginForm.get('password').touched)">
+                  {{ error.message }}
+                </div>
+              </ng-container>
+            </div> -->
+            <div class="form-outline mb-4">
+                <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                <label class="form-label" for="form3Example1cg">Your Name</label>
+              </div>
+            <div class="form-group">
+              <label class="cursorpointer"><small> Forgot Password? </small></label>
+            </div>
+            <div class="row space">
+              <div class="col">
+                <button mat-flat-button color="primary" class="loginsubmit" [disabled]="vowService.process" (click)="VowloginSubmit()">
+                  <mat-spinner color="warn" [diameter]="25" *ngIf="vowService.process"></mat-spinner>
+                  <span *ngIf="!vowService.process">Login</span>
+                </button>
+              </div>
+            </div>
+          </form>
+  
+        </div>
+  
+      </div>
+    </div>
+  </div>

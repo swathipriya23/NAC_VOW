@@ -1,0 +1,49 @@
+<h2>Portal Summary</h2>
+<!-- <div>
+    <button mat-fab style="margin-left: 20px;background-color: #EDF8FA;" (click)="portalCreation()"  aria-label="portal">
+                            <mat-icon matTooltip="Add Portal">add</mat-icon>
+    </button>
+</div> -->
+<br>
+<div class="table-responsive">
+    <table class="table table_text table-bordered">
+        <thead class="table_header" >
+            <tr>
+                <th>Sl.No</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of branchsummaryList; index as i">
+                <!-- <td> {{(paymentpresentpage - 1)*pagesizepayment +i+1 }} </td> -->
+                <td>{{i+1}}</td>
+                <td>{{list.code}}</td>
+                <td class="textstyle" (click)="branchView(list)">{{list.name}}</td>
+                <td>
+                    <button mat-icon-button matTooltip="View"
+                        class="iconbutton" (click)="branchEdit(list)"color="primary">
+                        <mat-icon style="color:black;" aria-label="Edit">edit</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <div *ngIf="summaryList ?.length == 0" style="margin-left: 42%;">
+        <h3>Sorry data not found!.. </h3>
+    </div>
+    <div class="row" *ngIf="ispaymentpage">
+        <div class="col-sm-12" style="font-size: small;text-align: right; margin-bottom: 50px;">
+            <button mat-icon-button [disabled]="has_paymentprevious === false" color="primary"
+                (click)="previousClickPayment()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            {{paymentpresentpage}}
+            <button mat-icon-button [disabled]="has_paymentnext === false" color="primary"
+                (click)="nextClickPayment()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </div> -->
+</div>

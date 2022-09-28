@@ -1,0 +1,30 @@
+<h2>Notifyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</h2>
+<div  style="text-align:center;">
+    <div class="alert alert-success" role="alert">
+        <h1>{{this.errorMessage}}</h1>
+    </div>
+</div>
+
+<div style="border: 1px solid red;height: 100px;">
+    <div *ngIf="successAlert">
+        <div class="alert alert-success" role="alert">
+            {{errorMessage}}
+        </div>
+    </div>
+    <div *ngIf="warningAlert">
+        <div class="alert alert-warning" role="alert">
+            {{errorMessage}}
+        </div>
+    </div>
+
+    <div *ngIf="failureAlert">
+        <div class="alert alert-warning" role="alert">
+            {{errorMessage}}
+        </div>
+    </div>
+    <div *ngIf="infoAlert">
+        <div class="alert alert-info" role="alert">
+            {{errorMessage}}
+        </div>
+    </div>
+</div>

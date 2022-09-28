@@ -1,0 +1,229 @@
+
+<h2>Portal Creation</h2>
+<div>
+    <form [formGroup]="portalForm" autocomplete="off">
+    <div class="row">
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name"
+                autocomplete="off">
+         </mat-form-field>
+
+
+        </div>
+       <div class="col">
+        <mat-form-field>
+          <mat-label>PAN Number</mat-label>
+          <input matInput placeholder="PAN Number" formControlName="pan_no"
+              autocomplete="off">
+       </mat-form-field>
+        
+       </div>
+       <div class="col">
+       
+        <mat-form-field>
+         <mat-label>GST Number</mat-label>
+         <input matInput placeholder="Gst Number" formControlName="gst_no"
+             autocomplete="off">
+      </mat-form-field>
+  
+  
+        </div>
+        <div class="col">
+       <mat-form-field>
+         <mat-label>Mobile Number</mat-label>
+         <input matInput placeholder="Mobile No" formControlName="phone_no"
+             autocomplete="off">
+      </mat-form-field>
+        </div>
+     </div>
+     <!-- <div class="row">
+      <div class="col">
+       
+      <mat-form-field>
+       <mat-label>GST Number</mat-label>
+       <input matInput placeholder="Gst Number" formControlName="gst_no"
+           autocomplete="off">
+    </mat-form-field>
+
+
+      </div>
+      <div class="col">
+     <mat-form-field>
+       <mat-label>Mobile No</mat-label>
+       <input matInput placeholder="Mobile No" formControlName="phone_no"
+           autocomplete="off">
+    </mat-form-field>
+      </div>
+    </div> -->
+
+
+
+    <div [formGroup]="contactform">
+      <h3 class="headingname">Contact</h3>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="name"
+              autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Designation</mat-label>
+            <input matInput placeholder="Designation" formControlName="designation"
+                autocomplete="off">
+         </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            <mat-form-field>
+              <mat-label>Email Address</mat-label>
+              <input matInput placeholder="Email Address" formControlName="email"
+                  autocomplete="off">
+           </mat-form-field>
+          </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Mobile 1</mat-label>
+            <input matInput placeholder="Mobile 1" formControlName="mobile_1" maxlength="10" appVowvalidatephonenumber
+                autocomplete="off">
+                <mat-error *ngIf="contactform.controls.mobile_1.errors?.phonenumbervalidation">
+                  Invalid Phone Number
+               </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Mobile 2</mat-label>
+            <input matInput placeholder="Mobile 2" formControlName="mobile_2" maxlength="10" appVowvalidatephonenumber
+                autocomplete="off">
+                <mat-error *ngIf="contactform.controls.mobile_2.errors?.phonenumbervalidation">
+                  Invalid Phone Number
+               </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+     </div>
+
+     <div [formGroup]="addressform">
+      <h3 class="headingname">Address</h3>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Line 1 </mat-label>
+            <input matInput placeholder="Line 1" formControlName="line1" autocomplete="off">
+        </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Line 2</mat-label>
+            <input matInput placeholder="Line 2" formControlName="line2" autocomplete="off">
+        </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Line 3</mat-label>
+            <input matInput placeholder="Line 3" formControlName="line3" autocomplete="off">
+        </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field (click)="pincodename()">
+            <mat-label>Pin Code</mat-label>
+            <input #pinCodeInput appVowvalidatestring placeholder="Select PinCode" 
+                maxlength="6" matInput
+                formControlName="pincode_id" autocomplete="off" [matAutocomplete]="pintype">
+            <mat-autocomplete #pintype="matAutocomplete" [displayWith]="displayFnpin">
+                <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let pin of pinCodeList" (focusout)="pinCode(pin)" [value]="pin">
+                        {{pin.no}}
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+           
+        </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field (click)="cityname()">
+            <mat-label>City</mat-label>
+            <input #cityInput matInput formControlName="city_id" autocomplete="off"
+                placeholder=" Select City" [matAutocomplete]="autocit">
+            <mat-autocomplete #autocit="matAutocomplete" [displayWith]="displaycit">
+                <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let city of cityList" [value]="city">{{city.name}}
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+        </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field (click)="districtname()">
+            <mat-label>District</mat-label>
+            <input #districtInput matInput formControlName="district_id"
+                placeholder=" Select District" autocomplete="off"
+                [matAutocomplete]="autodis">
+            <mat-autocomplete #autodis="matAutocomplete" [displayWith]="displaydis">
+                <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let district of districtList" [value]="district">
+                        {{district.name}}
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+        </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field (click)="statename()">
+              <mat-label>State</mat-label>
+              <input #stateInput placeholder="Select State" matInput
+                  formControlName="state_id" autocomplete="off" [matAutocomplete]="statetype">
+              <mat-autocomplete #statetype="matAutocomplete" [displayWith]="displayFnstate">
+                  <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                  <ng-container *ngIf="!isLoading">
+                      <mat-option *ngFor="let state of stateList" [value]="state">
+                          {{state.name}}
+                      </mat-option>
+                  </ng-container>
+              </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col">
+          <mat-form-field (click)="statename()">
+            <mat-label>State</mat-label>
+            <input #stateInput placeholder="Select State" matInput
+                formControlName="state_id" autocomplete="off" [matAutocomplete]="statetype">
+            <mat-autocomplete #statetype="matAutocomplete" [displayWith]="displayFnstate">
+                <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let state of stateList" [value]="state">
+                        {{state.name}}
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+        </mat-form-field>
+        </div>
+      </div> -->
+     </div>
+
+
+    </div>
+
+
+    <button mat-raised-button class="submitbtn" (click)="branchCreateForm()">Submit</button>
+    <button mat-raised-button class="cancelbtn" (click)="oncancelBranch()">Cancel</button>
+    
+    
+      
+
+    </form>
+  </div>

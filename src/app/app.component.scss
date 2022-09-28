@@ -1,0 +1,381 @@
+div {
+    // font-family: 'Montserrat', sans-serif;
+    font-family: 'Raleway', sans-serif;
+}
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+}
+
+
+#headerpart {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 40px;
+    // background-color:#007462;
+    border-bottom: 2px solid rgb(0, 0, 0, .1);
+    box-shadow: 0 0.5rem 1rem 0 rgb(0 0 0 / 10%);
+    z-index: 10;
+}
+
+div#logo {
+    float: left;
+    display: block;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.menuHeader {
+    margin: auto;
+    padding: 10px;
+    overflow: scroll;
+}
+
+
+.textul {
+    list-style-type: none;
+    text-decoration: none;
+    margin: 0px 0px 0px 50px;
+    padding: 10px;
+    overflow: scroll;
+    // color: #ffffff;
+    cursor: pointer;
+}
+
+.textul p {
+    float: left;
+    display: block;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    // color: #ffffff;
+}
+.textul a {
+    float: left;
+    display: block;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    // color: #ffffff;
+}
+
+
+.settingsnav {
+    float: right;
+    // padding: 5px;
+    margin-top: -5px;
+}
+
+.mobileviewlook{
+    display: none;
+}
+.webviewlook{
+    display: block;
+}
+
+
+
+.mobileNav{
+    float: right;
+}
+
+
+#rightsidemenu{
+    position: fixed;
+    top: 0px;
+    right: -10px;
+    width: 0px;
+    height: 100vh;
+    background-color: #ffffff;
+    z-index: 2;
+    // border: 1px solid #007462;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+}
+
+
+
+#rightsidemenu .closebuttononmenu{
+    position: absolute;
+    top: 65px;
+    left: 190px;
+    z-index: 1;
+}
+
+.cardviewprofile {
+    position: relative;
+    top: 65px;
+    margin-bottom: 100px;
+}
+.roundimage{
+    border: 5px solid #007462;
+    margin: 0px auto;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.userimageprofile{
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+
+}
+
+.sidemenuListShow p {
+    text-decoration: none;
+    cursor: pointer;
+    // color: black;
+}
+
+.sidemenuListShow p:hover {
+    border-bottom: 1px solid #007462;
+    
+}
+
+.atagdecoration{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#rightsidemenu .footer{
+    position: absolute;
+     bottom: -2px;
+     background-color: #007462;
+     width: 250px;
+     height: 40px;
+     color: #ffffff;
+     text-align: center;
+ 
+ }
+
+
+ ////////////////////////////////////////////////////////////////////////////@at-root
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////
+#topnavbar {
+    // position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: #ffffff;
+    box-shadow: 1px 1px 1px 1px rgba(32, 32, 32, 0.1);
+    z-index: 1;
+}
+
+#topnavbar .scrollnav {
+    width: 500px;
+    overflow: scroll;
+    border: 1px solid green;
+}
+
+
+
+#topnavbar ul {
+    flex-direction: row;
+    white-space: nowrap;
+    width: 1500px;
+
+}
+
+#topnavbar ul li {
+    padding: 10px;
+    margin-left: 50px;
+    list-style-type: none;
+    float: left;
+    list-style: none;
+    display: inline;
+    cursor: pointer;
+    overflow-x: scroll;
+}
+
+
+
+#maincontent {
+    // margin: 130px 10px 10px 10px;
+    // width: 98.5%;
+    // height: 99%;
+    // background-color: #ffffff;
+    // overflow: scroll;
+    margin-left: 12%;
+}
+
+// #maincontentpad{
+//     padding: 10px;
+//   }
+  
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+.cursorshow{
+    cursor: pointer;
+}
+
+.viewemail{
+    margin-top: -4%;
+}
+
+// .backgroundcolor{
+//     background-color: #f1f1f1;
+// }
+
+
+
+@media screen and (max-width: 992px) {
+    .topnav{
+        display: none;
+    }
+    .mobileNav{
+        display: block;
+        color: #ffffff;
+        padding: 15px;
+    }
+    .webviewlook{
+        display: none;
+    }
+
+    .mobileviewlook{
+        display: block;
+    }
+    #maincontent {
+        margin: 100px 10px 10px 10px;
+        width: 95.5%;
+        height: 99%;
+        background-color: #ffffff;
+        overflow: scroll;
+    }
+    .list-group-item{
+        text-decoration: none;
+        color: #282c3f;
+        font-weight: bold;
+    }
+    .sidemenuListShow a:hover {
+        color: #007462;
+      }
+
+    .verticalscroll {
+        // height: 315px;
+        overflow-y: auto;
+    }
+
+}
+
+
+
+
+
+// // nac vow
+
+.sidenav {
+    height: 100%;
+    width: 12.02%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    // background-color: #DDEFDD;
+    background-color: #21cbe5;
+    // overflow-x: hidden;
+    transition: 0.5s;
+    // overflow: hidden;
+  }
+
+  .sideNav-title{
+    margin-left: 12px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .module_text{
+    color: #fff;
+  }
+
+  .parent_selected{ 
+    position: relative; 
+    // width: 182px; 
+    height: 40px; 
+    background-color: #4A708B;
+    font-size: 17px; 
+    text-align: left; 
+    cursor: pointer;
+    color: #fff;
+  } 
+
+  .module_text{
+    padding: 10px;
+    margin-left: 10px;
+    /* color: #fff; */
+    /*color: #007337;*/
+}
+
+.module_text_selected{
+  padding: 10px;
+  margin-left: 10px;
+    /*color: #fff;*/
+}
+
+
+
+
+// w3school
+// .sidenav {
+//     height: 100%;
+//     width: 0;
+//     position: fixed;
+//     z-index: 1;
+//     top: 0;
+//     left: 0;
+//     background-color: #111;
+//     overflow-x: hidden;
+//     transition: 0.5s;
+//     padding-top: 60px;
+//   }
+  
+//   .sidenav a {
+//     padding: 8px 8px 8px 32px;
+//     text-decoration: none;
+//     font-size: 25px;
+//     color: #818181;
+//     display: block;
+//     transition: 0.3s;
+//   }
+  
+//   .sidenav a:hover {
+//     color: #f1f1f1;
+//   }
+  
+//   .sidenav .closebtn {
+//     position: absolute;
+//     top: 0;
+//     right: 25px;
+//     font-size: 36px;
+//     margin-left: 50px;
+//   }
+  
+//   #main {
+//     transition: margin-left .5s;
+//     padding: 16px;
+//   }
+  
+//   @media screen and (max-height: 450px) {
+//     .sidenav {padding-top: 15px;}
+//     .sidenav a {font-size: 18px;}
+//   }

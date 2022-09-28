@@ -1,0 +1,243 @@
+<div class="Container">
+    <h2>
+        <span class="material-icons alignvertical" (click)="backnavigate()">arrow_back</span>Branch Details
+    </h2>
+
+
+   
+
+
+    <div style="width: 93%;
+    margin-left: 40px;margin-top: 1%;">
+
+<mat-chip-list>
+    <mat-chip>
+        Name : {{ branchname }}
+    </mat-chip>
+    <mat-chip>
+        GST : {{ branchGst }}
+    </mat-chip>
+    <mat-chip>
+        PAN: {{ branchPan}}
+    </mat-chip>
+    <mat-chip>
+        Phone No: {{ branchPhone }}
+    </mat-chip>
+
+</mat-chip-list>
+
+<br>
+
+
+
+
+        <mat-accordion class="example-headers-align" >
+            <mat-expansion-panel [expanded]="true">
+    
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="font-weight: bold;">
+                       Contact & Address
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <br>
+
+
+                <table style="width: 60%;">
+                    <tbody>
+                        <tr>
+                            <td class="detail_table_label">Name</td>
+                            <div class="view-text">
+                                <td>{{cname}}</td>
+                            </div>
+                            <td class="detail_table_label"></td>
+                            <div class="view-text">
+                                <td>{{Line1}},{{Line2}}</td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td class="detail_table_label">Designation</td>
+                            <div class="view-text">
+                                <td>{{Designation}}</td>
+                            </div>
+                            <td class="detail_table_label"></td>
+                            <div class="view-text">
+                                <td>{{Line3}}</td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td class="detail_table_label">Email</td>
+                            <div class="view-text">
+                                <td>{{Email}}</td>
+                            </div>
+                            <td class="detail_table_label"></td>
+                            <div class="view-text">
+                                <td>{{City}},{{District}}</td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td class="detail_table_label">Mobile No</td>
+                            <div class="view-text">
+                                <td>{{cmobile}}&nbsp; &nbsp;{{cmobile2}}</td>
+                            </div>
+                            <td class="detail_table_label"></td>
+                            <div class="view-text">
+                                <td>{{State}},{{Pincode}}</td>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </div>
+
+
+
+
+<div *ngIf="ispayment" class="summaryposition">
+<h2>Payment Summary</h2>
+<div class="paymentbtn">
+    <button mat-fab style="background-color: burlywood;" (click)="addPayment()">
+                            <mat-icon matTooltip="Add Payment">add</mat-icon>
+    </button>
+</div>
+<br/>
+<div class="table-responsive">
+    <table class="table table_text table-bordered">
+        <thead class="table_header">
+            <tr>
+                <th>Sl.No</th>
+                <th>Paymode</th>
+                <th>Bank</th>
+                <th>Account Number</th>
+                <th>Beneficiary Name</th>
+                <th>Edit</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of PaymentList; index as i">
+                <!-- <td> {{(paymentpresentpage - 1)*pagesizepayment +i+1 }} </td> -->
+                <td>{{i+1}}</td>
+                <td>{{ list.paymode_id.name  }}</td>
+                <td>{{ list.bank_id.name }}</td>
+                <td>{{ list.account_no }}</td>
+                <td>{{ list.beneficiary }}</td>
+                <td>
+                    <button mat-icon-button matTooltip="Edit"
+                        class="iconbutton" (click)="paymentEdit(list)"color="primary">
+                        <mat-icon style="color:black;" aria-label="Edit">edit</mat-icon>
+                    </button>
+                </td>
+                <td>
+                    <span *ngIf='list.is_active==true' class="material-icons editlink  active"
+                    title="Click to inactive" role="button" tabindex="0"
+                    (click)="activeto_inactive(list)">wb_sunny
+                    </span>
+
+                    <span *ngIf='list.is_active==false' class="material-icons editlink  inactive"
+                    title="Click to active" (click)="activeto_inactive(list)" role="button"
+                    tabindex="0">wb_sunny
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="PaymentList ?.length == 0" style="margin-left: 42%;">
+        <h3>Sorry data not found!.. </h3>
+    </div>
+    <!-- <div class="row" *ngIf="ispaymentpage">
+        <div class="col-sm-12" style="font-size: small;text-align: right; margin-bottom: 50px;">
+            <button mat-icon-button [disabled]="has_paymentprevious === false" color="primary"
+                (click)="previousClickPayment()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            {{paymentpresentpage}}
+            <button mat-icon-button [disabled]="has_paymentnext === false" color="primary"
+                (click)="nextClickPayment()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </div> -->
+</div>
+</div>
+
+<div *ngIf="paymentaddform">
+    <app-payment (onCancel)="paymentaddcancel()" (onSubmit)="paymentaddsumbmit()"></app-payment>
+</div>
+
+<div *ngIf="paymenteditform">
+    <app-payment-update (onCancel)="paymentEditCancel()" (onSubmit)="paymentEditSumbmit()"></app-payment-update>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<!-- <div class="modal fade" id="paymentpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
+          <button type="button" class="btn-close" class="close" 
+           data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           
+            <app-payment (onCancel)="paymentaddcancel()" (onSubmit)="paymentaddsumbmit()"></app-payment>
+           
+        </div>
+      </div>
+    </div>
+</div> -->
+
+
+<div class="modal fade" id="paymentpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Payment</h3>
+          <button type="button" class="btn-close" #closebuttonbranchPayment
+          (click)="paymentaddcancel()" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <app-payment (onCancel)="paymentaddcancel()" (onSubmit)="paymentaddsumbmit()"></app-payment>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="paymentUpdatepopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Payment Update</h3>
+          <button type="button" class="btn-close" #closebuttonbranchPaymentedit
+          (click)="paymentEditCancel()" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <!-- <app-branch-summary></app-branch-summary> -->
+            <app-payment-update (onCancel)="paymentEditCancel()" (onSubmit)="paymentEditSumbmit()"></app-payment-update>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

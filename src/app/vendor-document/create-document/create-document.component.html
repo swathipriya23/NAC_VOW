@@ -1,0 +1,53 @@
+<h2>Document Creation</h2>
+<div>
+    <form [formGroup]="DocumentAddForm">
+        <div class="example-form">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field (click)="docgroupname()">
+                       
+                        <mat-label>DocGroup </mat-label>
+                        <input #docInput placeholder="Select parent" matInput 
+                        formControlName="docgroup_id"
+                            [matAutocomplete]="parenttype" >
+                        <mat-autocomplete #parenttype="matAutocomplete" 
+                        [displayWith]="displayFnparent">
+                            <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                            <ng-container *ngIf="!isLoading">
+                                <mat-option *ngFor="let doc of docGroupList" 
+                                 [value]="doc">
+                                    {{doc.name}}
+                                </mat-option>
+                            </ng-container>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <mat-label>Period</mat-label>
+                        <input matInput placeholder="enter period" (keypress)="numberOnly($event)"
+                        formControlName="period" autocomplete="off" >
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <mat-label>Remarks</mat-label>
+                        <input matInput placeholder="Remarks" 
+                        formControlName="remarks" autocomplete="off">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <!-- <h2> SSLC/HSC</h2> -->
+                    <input type="file" #fileInput id="uploadFile1" class="choose-file"
+                        (change)="fileChange($event)" name="uploadFile1" multiple="multiple" />
+                </div>
+            </div>
+        </div>
+        <br />
+        <button mat-raised-button class="submitbtn" (click)="docSubmitForm()">Submit</button>
+        <button mat-raised-button class="cancelbtn" (click)="onCancelDoc()">Cancel</button>
+
+    </form>
+</div>

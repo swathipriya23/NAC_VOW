@@ -1,0 +1,178 @@
+<div class="wrapper">
+    <!-- <div class="headerpart" id="headerpart" *ngIf="vowService.isAuthenticated"> -->
+        <!-- <div id="logo"><a class="navbar-brand text-light">Vsolv</a></div> -->
+
+        <!-- <div class="topnav textul"> -->
+            <!-- <ng-container class="listvalue cursorshow" *ngFor="let module of sidemenuList; let index = index">
+                <strong>
+                    <p (click)="SelectedModule(module)">{{module.name}}</p>
+                </strong>
+            </ng-container> -->
+            <!-- <span style="font-size:30px;cursor:pointer" (click)="openNavMain()">&#9776; open</span>
+            <div class="settingsnav">
+                <span id="UserNameContainer" style="font-weight: bold;font-size: 17px;margin-right: 10px;">{{userName}}</span>
+                <span class="material-icons dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">settings</span>
+
+                <div class="dropdown-menu cursorshow" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item text-dark cursorshow" title="Profile" (click)="openNav()">Profile</a>
+                    <a class="dropdown-item text-dark cursorshow" title="logout" (click)="logout()">Logout</a>
+                </div>
+            </div> -->
+        <!-- </div> -->
+
+
+
+        <div id="mySidenav" class="sidenav" *ngIf="vowService.isAuthenticated">
+            <div style="background-color:53A95A;cursor: pointer;color: #fff;"> 
+              <img id="LogoTag1" src="../assets/Nimbus-Logo-1.png" width="50px">
+              <span style="font-size: 17px;" *ngIf="iscondition === false"> Northern ARC </span>
+            </div>
+            <div class="scrollclass" style="margin-bottom:100px;font-size: 17px;">
+              <div *ngFor="let modrow of sidemenuList; let i = index" [ngClass]="{'parent_selected':checkIfCardIsClicked(i)}">
+                <div title="{{modrow.name}} " class="module_text" (click)="SelectedModule(modrow,i)"><i
+                    class={{modrow.logo}}></i>
+                  <span class="sideNav-title" *ngIf="iscondition === false">{{modrow.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+
+        
+        
+    
+
+        <!-- <div class=" mobileviewlook mobileNav ">
+            <span id="UserNameContainer" style="font-weight: bold;font-size: 18px;margin-right: 10px;">{{userName}}</span>
+            <span class="material-icons" title="Menu" (click)="openNav()">menu</span>
+        </div> -->
+
+
+    <!-- </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="rightsidemenu" id="rightsidemenu" *ngIf="vowService.isAuthenticated">
+
+        <button class=" closebuttononmenu" title="close" color="light" (click)="closeNavRight()" mat-mini-fab
+            aria-label="Close">
+            <mat-icon>close</mat-icon>
+        </button>
+        <div class="cardviewprofile">
+            <div class="roundimage">
+                <img src="/assets/userimage.png" alt="image" class="userimageprofile">
+            </div>
+            <h2 class="text-center">{{userName}}</h2>
+            <h4 class="text-center viewemail">{{cpmyname}}</h4>
+            <h4 class="text-center viewemail">{{emailname}}</h4>
+            <div class="verticalscroll">
+            <div class="mobileviewlook sidemenuListShow list-group cursorshow"
+                *ngFor="let module of sidemenuList; let index = index">
+
+                <a class="list-group-item" (click)="SelectedModule(module,index)">{{module.name}}</a>
+
+            </div>
+            </div>
+            <a class="atagdecoration list-group-item cursorshow" title="logout" (click)="logout()">Logout</a>
+
+            <br><br>
+
+        </div>
+
+    </div>
+
+
+    <div *ngIf="vowService.isAuthenticated == false">
+
+        <app-login></app-login>
+
+    </div>
+
+
+
+
+
+
+
+
+    <!-- <div class="webviewlook topnavbar" id="topnavbar" *ngIf="vowService.isAuthenticated">
+
+
+    </div> -->
+
+
+
+    <div class="maincontent" id="maincontent" *ngIf="vowService.isAuthenticated">
+        <nav class="navbar navbar-light  justify-content-between" style="box-shadow: inset 0px 0rem 1rem 0px rgb(0 0 0 / 10%);height: 40px;">
+            <span style="font-size:30px;cursor:pointer" (click)="openNavMain()">&#9776; </span>
+        <div style="margin-right: 1%;">
+            <span id="UserNameContainer" style="margin-right: 10px;font-size: 18px;">{{userName}}</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/152/152360.png" 
+              style="width: 25px;cursor: pointer;">&nbsp;
+              <span class="material-icons" (click)="logout()" style="cursor: pointer;">
+                logout
+                </span>
+        </div>
+        </nav>
+        <!-- <div class="settingsnav">
+            <span id="UserNameContainer" style="font-weight: bold;font-size: 17px;margin-right: 10px;">{{userName}}</span>
+            <span class="material-icons dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">settings</span>
+
+            <div class="dropdown-menu cursorshow" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item text-dark cursorshow" title="Profile" (click)="openNav()">Profile</a>
+                <a class="dropdown-item text-dark cursorshow" title="logout" (click)="logout()">Logout</a>
+            </div>
+        </div> -->
+
+
+        <div id="maincontentpad">
+            <mat-card class="backgroundcolor">
+                <router-outlet></router-outlet>
+            </mat-card> 
+        </div>
+    </div>
+
+
+
+
+    <!-- <div *ngIf="vowService.isAuthenticated">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+          </div>
+          
+          <div id="main">
+            <h2>Sidenav Push Example</h2>
+            <p>Click on the element below to open the side navigation menu, and push this content to the right.</p>
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+          </div>
+    </div> -->
+
+
+
+
+
+
+
+
+</div>

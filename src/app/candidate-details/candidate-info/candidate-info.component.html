@@ -1,0 +1,726 @@
+<!-- <div class="card">
+    <div class="card-body"> --> 
+
+
+        
+
+        <h2> Candidate Information </h2>
+        <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
+            <mat-step [stepControl]="Candidate" label="Bio-data" state="person">
+                <div>
+                    <form [formGroup]="Candidate">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>First Name </mat-label>
+                                        <input matInput placeholder="First Name" formControlName="first_name"
+                                            autocomplete="off">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Middle Name </mat-label>
+                                        <input matInput placeholder="Middle Name" formControlName="middle_name"
+                                            autocomplete="off">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Last Name </mat-label>
+                                        <input matInput placeholder="Last Name" formControlName="last_name"
+                                            autocomplete="off">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Email </mat-label>
+                                        <input matInput placeholder="Email" formControlName="email" autocomplete="off">
+                                        <mat-error *ngIf="Candidate.controls['email'].hasError('email')">
+                                            Email is not Valid!
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Phone No</mat-label>
+                                        <input matInput placeholder="Phone No" maxlength="10" appVowvalidatephonenumber formControlName="phone_no"
+                                            autocomplete="off">
+                                            <mat-error *ngIf="Candidate.controls.phone_no.errors?.phonenumbervalidation">
+                                               Invalid Phone Number
+                                            </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Date of birth</mat-label>
+                                        <input matInput readonly [matDatepicker]="picker" formControlName="dob">
+                                        <mat-hint>MM/DD/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Gender</mat-label>
+                                        <mat-select formControlName="gender">
+                                            <mat-option *ngFor="let gender of genderList" [value]="gender.id">
+                                                {{gender.text}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <button mat-raised-button class="steppersavebtn" (click)="submit_candidate_bio()">Save</button>
+                        <button mat-raised-button class="stepperbtn"
+                            (click)="showSnackbarTopPosition('Saved successfully','Done','1000')"
+                            matStepperNext>Next</button>
+                    </form>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="CandidateAddress" label="Address" state="contact_mail">
+                <div class="card paddingstyle">
+                    <button mat-raised-button class="middlestyle" (click)="address_copy()">Copy</button>
+                    <!-- <pre>valid or invalid-------------------{{CandidateAddress.valid}}</pre>
+                    <br>
+                    <pre>valid or invalid-------------------{{CandidateAddress.invalid}}</pre> -->
+
+                    <form [formGroup]="CandidateAddress">
+                        <div class="row" formArrayName="address">
+                            <div class="col-sm-6 col-md-6 col-lg-6"
+                                *ngFor="let addressgrp of CandidateAddress.controls.address['controls'];let addindex = index"
+                                [formGroupName]="addindex">
+                                <div>
+                                    <mat-form-field>
+                                        <mat-label>Type</mat-label>
+                                        <mat-select formControlName="type">
+                                            <mat-option *ngFor="let add of addressList" [value]="add.id">
+                                                {{add.text}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <mat-label>Line 1 </mat-label>
+                                        <input matInput placeholder="Line 1" formControlName="line1" autocomplete="off">
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <mat-label>Line 2 </mat-label>
+                                        <input matInput placeholder="Line 2" formControlName="line2" autocomplete="off">
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <mat-label>Line 3 </mat-label>
+                                        <input matInput placeholder="Line 3" appVowvalidatenumber formControlName="line3" autocomplete="off">
+                                    </mat-form-field>
+
+                                    <mat-form-field (click)="pincodename(addindex)">
+                                        <mat-label>Pin Code</mat-label>
+                                        <input #pinCodeInput appVowvalidatestring placeholder="Select PinCode" 
+                                            maxlength="6" matInput
+                                            formControlName="pincode_no" autocomplete="off" [matAutocomplete]="pintype">
+                                        <mat-autocomplete #pintype="matAutocomplete" [displayWith]="displayFnpin"
+                                        (scroll)="onScroll($event)">
+                                            <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                                            <ng-container *ngIf="!isLoading">
+                                                <mat-option *ngFor="let pin of pinCodeList" [value]="pin">
+                                                    {{pin.no}}
+                                                </mat-option>
+                                            </ng-container>
+                                        </mat-autocomplete>
+                                        <mat-error *ngIf="CandidateAddress.controls.address['controls'][addindex].get('pincode_no').errors?.stringvalidation">
+                                            Please Select from dropdown
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field (click)="cityname(addindex)">
+                                        <mat-label>City</mat-label>
+                                        <input #cityInput matInput formControlName="city_id" autocomplete="off"
+                                            placeholder=" Select City" [matAutocomplete]="autocit">
+                                        <mat-autocomplete #autocit="matAutocomplete" [displayWith]="displaycit">
+                                            <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                                            <ng-container *ngIf="!isLoading">
+                                                <mat-option *ngFor="let city of cityList" [value]="city">{{city.name}}
+                                                </mat-option>
+                                            </ng-container>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+
+
+
+                                    <mat-form-field (click)="districtname(addindex)">
+                                        <mat-label>District</mat-label>
+                                        <input #districtInput matInput formControlName="district_id"
+                                            placeholder=" Select District" autocomplete="off"
+                                            [matAutocomplete]="autodis">
+                                        <mat-autocomplete #autodis="matAutocomplete" [displayWith]="displaydis">
+                                            <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                                            <ng-container *ngIf="!isLoading">
+                                                <mat-option *ngFor="let district of districtList" [value]="district">
+                                                    {{district.name}}
+                                                </mat-option>
+                                            </ng-container>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+
+
+
+                                    <mat-form-field (click)="statename(addindex)">
+                                        <mat-label>State</mat-label>
+                                        <input #stateInput placeholder="Select State" matInput
+                                            formControlName="state_id" autocomplete="off" [matAutocomplete]="statetype">
+                                        <mat-autocomplete #statetype="matAutocomplete" [displayWith]="displayFnstate">
+                                            <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                                            <ng-container *ngIf="!isLoading">
+                                                <mat-option *ngFor="let state of stateList" [value]="state">
+                                                    {{state.name}}
+                                                </mat-option>
+                                            </ng-container>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <button mat-raised-button class="steppersavebtn"
+                            (click)="submit_candidate_address()">Save</button>
+                        <button mat-raised-button class="stepperbtn"
+                            (click)="showSnackbarTopPosition('Saved successfully','Done','1000')"
+                            matStepperNext>Next</button>
+                    </form>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="CandidateEducation" state="school" label="Education">
+                <div>
+                    <div class="form-row">
+                        <button mat-fab class="Addsection" (click)="addEducation()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <br>
+
+                    <form [formGroup]="CandidateEducation">
+                        <div formArrayName="education">
+                            <div *ngFor="let educationgrp of CandidateEducation.controls.education['controls'];let addindex = index"
+                                [formGroupName]="addindex">
+                                <div class="card paddingstyle">
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>Title </mat-label>
+                                                <input matInput placeholder="Title" formControlName="title"
+                                                    autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field (click)="degreeName(addindex)">
+                                                <mat-label>Degree</mat-label>
+                                                <input #degreeInput appVowvalidatestring placeholder="Select Degree" matInput
+                                                    formControlName="degree" autocomplete="off" [matAutocomplete]="degreetype">
+                                                <mat-autocomplete #degreetype="matAutocomplete" [displayWith]="displayFnDegree">
+                                                    <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                                                    <ng-container *ngIf="!isLoading">
+                                                        <mat-option *ngFor="let degree of degreeList" [value]="degree">
+                                                            {{degree.name}}
+                                                        </mat-option>
+                                                    </ng-container>
+                                                </mat-autocomplete>
+                                                <mat-error *ngIf="CandidateEducation.controls.education['controls'][addindex].get('degree').errors?.stringvalidation">
+                                                    Please Select from dropdown
+                                                </mat-error>
+                                            </mat-form-field> 
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field (click)="streamname(addindex)">
+                                                <mat-label>Stream</mat-label>
+                                                <input #streamInput matInput appVowvalidatestring formControlName="stream" autocomplete="off"
+                                                    placeholder=" Select Stream" [matAutocomplete]="autostream">
+                                                <mat-autocomplete #autostream="matAutocomplete" [displayWith]="displayStream">
+                                                    <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                                                    <ng-container *ngIf="!isLoading">
+                                                        <mat-option *ngFor="let stream of streamList" [value]="stream">{{stream.name}}
+                                                        </mat-option>
+                                                    </ng-container>
+                                                </mat-autocomplete>
+                                                <mat-error *ngIf="CandidateEducation.controls.education['controls'][addindex].get('degree').errors?.stringvalidation">
+                                                    Please Select from dropdown
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div> 
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label> Institute Name </mat-label>
+                                                <input matInput placeholder="Institute Name" formControlName="inst_name"
+                                                    autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>City </mat-label>
+                                                <input matInput placeholder="City" formControlName="city"
+                                                    autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>Percentage </mat-label>
+                                                <input matInput placeholder="Percentage" formControlName="percentage"
+                                                    autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-label>Choose Passed Out Year</mat-label><br>
+                                            <mat-form-field class="monthyrstyle">
+                                                <mat-label>MM</mat-label>
+                                                <mat-select formControlName="month">
+                                                    <mat-option *ngFor="let month of dataMonth" [value]="month">
+                                                        {{month}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field class="monthyrstyle">
+                                                <mat-label>YYYY</mat-label>
+                                                <mat-select formControlName="year">
+                                                    <mat-option *ngFor="let year of yearlist" [value]="year">
+                                                        {{year}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div> 
+                                    </div>
+                                    <div class="row order">
+                                        <button mat-icon-button (click)="removeeducation(addindex)">
+                                            <mat-icon *ngIf="CandidateEducation.get('education')['controls'].length > 1"
+                                                matTooltip="Delete">delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <button mat-raised-button class="steppersavebtn"
+                            (click)="submit_candidate_education()">Save</button>
+                        <button mat-raised-button class="stepperbtn" matStepperNext>Next</button>
+                    </form>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="CandidateExperience" state="work" label="Work Experience">
+                <div>
+                    <div class="form-row">
+                        <button mat-fab class="Addsection" (click)="addExperience()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <br>
+
+                    <form [formGroup]="CandidateExperience">
+                        <div formArrayName="experience">
+                            <div *ngFor="let experiencegrp of CandidateExperience.controls.experience['controls'];let addindex = index"
+                                [formGroupName]="addindex">
+                                <div class="card paddingstyle">
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>Company</mat-label>
+                                                <input matInput placeholder="Company Name" formControlName="company"
+                                                    autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>City </mat-label>
+                                                <input matInput placeholder="City " formControlName="city"
+                                                    autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>D.O.J</mat-label>
+                                                <input matInput readonly [matDatepicker]="picker1"
+                                                    formControlName="doj">
+                                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                                <mat-datepicker-toggle matSuffix [for]="picker1">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+                                            </mat-form-field>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>D.O.R</mat-label>
+                                                <input matInput readonly [matDatepicker]="picker2"
+                                                    formControlName="dor">
+                                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                                <mat-datepicker-toggle matSuffix [for]="picker2">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #picker2></mat-datepicker>
+                                            </mat-form-field>
+
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>Role </mat-label>
+                                                <input matInput placeholder="Role" formControlName="role"
+                                                    autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>Work Experience </mat-label>
+                                                <input matInput placeholder="Role" formControlName="work_experience"
+                                                    autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row order">
+                                        <button mat-icon-button (click)="removeexp(addindex)">
+                                            <mat-icon
+                                                *ngIf="CandidateExperience.get('experience')['controls'].length > 1"
+                                                matTooltip="Delete">delete</mat-icon>
+                                        </button>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <button mat-raised-button class="steppersavebtn"
+                            (click)="submit_candidate_experience()">Save</button>
+                        <button mat-raised-button class="stepperbtn" matStepperNext
+                            (click)="showSnackbarTopPosition('Net is offline, Trying to reconnect in 2 seconds....','Done','1000')">Next</button>
+                    </form>
+                </div>
+            </mat-step>
+            <mat-step [stepControl]="PersonalDetails" state="description" label="Personal Details">
+                <div>
+                    <form [formGroup]="PersonalDetails">
+                        <div class="example-form">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Father Name </mat-label>
+                                        <input matInput placeholder="Father Name" formControlName="father_name"
+                                            autocomplete="off">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Mother Name </mat-label>
+                                        <input matInput placeholder="Mother Name" formControlName="mother_name"
+                                            autocomplete="off">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Marital Status</mat-label>
+                                        <mat-select formControlName="martial_status">
+                                            <mat-option *ngFor="let status of statusList" [value]="status.id">
+                                                {{status.text}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+                        <button mat-raised-button class="steppersavebtn"
+                            (click)="submit_personal_details()">Save</button>
+                        <button mat-raised-button class="stepperbtn"
+                            (click)="showSnackbarTopPosition('Saved successfully','Done','1000')"
+                            matStepperNext>Next</button>
+                    </form>
+                </div>
+            </mat-step>
+            <mat-step [stepControl]="Document" state="upload_file" label="Document">
+                <div>
+
+                    <form [formGroup]="Document">
+                        <!-- <div class="row">
+                            <div class="col">
+                                <h2> SSLC/HSC</h2>
+                                <input type="file" #fileInput id="uploadFile1" class="choose-file"
+                                    (change)="onFileSelectForRaiseReq($event)" name="uploadFile1" multiple="multiple" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h2> Degree/Diploma/Certificate</h2>
+                                <input type="file" #fileInput id="uploadFile2" class="choose-file"
+                                    (change)="onFileSelectForRaiseReq($event)" name="uploadFile2" multiple="multiple" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <h2> Government Proof </h2>
+                                <input type="file" #fileInput id="uploadFile3" class="choose-file"
+                                    (change)="onFileSelectForRaiseReq($event)" name="uploadFile3" multiple="multiple" />
+                            </div>
+                        </div> -->
+                        <div class="row topalign">
+                            <div class="col">
+                                <mat-form-field>
+                                    <mat-label>Type</mat-label>
+                                    <mat-select formControlName="type">
+                                        <mat-option *ngFor="let type of typeList" [value]="type">
+                                            {{type.text}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <input type="file" #fileInput class="choose-file"
+                                (change)="fileChangeDoc($event)" name="uploadFile1" multiple="multiple"/>
+                            </div>
+                            <div class="col">
+                                <button style="border-radius: 40px;" class="btn btn-outline-primary" (click)="adddocformarray()">Add</button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="table-responsive">
+                            <table class="table table_text">
+                                <thead class="table_header" >
+                                <tr>
+                                <th>Sl.No</th>
+                                <th>Type</th>
+                                <th>File</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr *ngFor="let display of docFunctionList; let i = index; ">
+                                    <td>{{i+1}}</td>
+                                    <td>{{display.type.text}}</td>
+                                    <td style="font-size: small;width: 150px;cursor: pointer;">
+                                        <div *ngFor="let file of display.filekey ;index as i;" title="{{file.name }}" class=" btn-link">
+                                            {{i+1}}.{{file.name }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <mat-icon style="color: gray;cursor: pointer;" (click)="docListDelete(i)">delete</mat-icon>
+                                    </td> 
+                                </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                        <br />
+                        <button mat-raised-button class="steppersavebtn"
+                        (click)="submit_DOC()">Save</button>
+                        <button mat-raised-button class="stepperbtn" type="submit"
+                            (click)="submit_candidateinfo()">Submit</button>
+                        <button mat-raised-button class="stepperbtn" data-toggle="modal" data-target="#exampleModal">Preview</button>    
+                        <!-- <button mat-raised-button class="stepperbtn" matStepperNext
+                            (click)="showSnackbarTopPosition('Net is offline, Trying to reconnect in 2 seconds....','Done','1000')">Next</button> -->
+                    </form>
+                </div>
+            </mat-step>
+            <!-- <mat-step>
+                <ng-template matStepLabel>Review</ng-template>
+                <div class="row">
+                    <div class="col">
+                        <button mat-fab color="accent" data-toggle="modal" data-target="#exampleModal">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <br>
+
+                <div class="row">
+
+                    <div class="col">
+                        <button mat-raised-button class="stepperbtn" matStepperPrevious>Back</button> &nbsp; &nbsp;
+                        <button mat-raised-button class="stepperbtn" type="submit"
+                            (click)="submit_candidateinfo()">Submit</button> &nbsp; &nbsp;
+                        <button mat-raised-button class="stepperbtn" (click)="stepper.reset()">Reset</button>
+                    </div>
+                </div> -->
+
+                <!-- </div> -->
+
+
+                <!-- <div>
+                    <button mat-raised-button class="stepperbtn" matStepperPrevious>Back</button> &nbsp; &nbsp;
+                    <button mat-raised-button class="stepperbtn" type="submit">Submit</button> &nbsp; &nbsp;
+                    <button mat-raised-button class="stepperbtn" (click)="stepper.reset()">Reset</button>
+                </div> -->
+            <!-- </mat-step> -->
+
+        </mat-horizontal-stepper>
+
+
+    <!-- </div>
+</div> -->
+
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Candidate Information</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table width="100%" style="margin-top: 1%;">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <!-- <table width="100%;" style="font-size:14px;"> -->
+                                    <!-- <tbody> -->
+                                        <!-- <tr> -->
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <p style="color: #808080;"> First Name <span style="color: black;">{{
+                                                        this.abcd }}
+                                                    </span></p>
+                                                <p style="color: #808080;"> Email<span style="color: black;">{{this.ss}}
+                                                    </span></p>
+                                                <p style="color: #808080;"> Gender <span
+                                                        style="color: black;">{{this.gender}}
+                                                    </span></p>
+
+                                                </div>
+                                                <div class="col">
+                                                    <p style="color: #808080;"> Middle Name <span style="color: black;">{{
+                                                        this.xyz }}
+                                                    </span></p>
+    
+                                                <p style="color: #808080;"> Phone No <span
+                                                        style="color: black;">{{this.gmm}}
+                                                    </span></p>
+                                                </div>
+                                                <div class="col">
+                                                    <p style="color: #808080;"> Middle Name <span style="color: black;">{{
+                                                        this.xyz }}
+                                                    </span></p>
+    
+                                                <p style="color: #808080;"> Phone No <span
+                                                        style="color: black;">{{this.gmm}}
+                                                    </span></p>
+
+                                                </div>
+
+                                            </div>
+                                            <!-- <p style="color: #808080;"> First Name <span style="color: black;">{{
+                                                    this.abcd }}
+                                                </span></p>
+                                            <p style="color: #808080;"> Email<span style="color: black;">{{this.ss}}
+                                                </span></p>
+                                            <p style="color: #808080;"> Gender <span
+                                                    style="color: black;">{{this.gender}}
+                                                </span></p> -->
+                                        <!-- </tr> -->
+                                    <!-- </tbody> -->
+                                <!-- </table> -->
+                            </td>
+                            
+                            <!-- <td>
+                                <table style="font-size:14px;width: 100%;">
+                                    <tbody>
+                                        <tr>
+                                            <p style="color: #808080;"> Middle Name <span style="color: black;">{{
+                                                    this.xyz }}
+                                                </span></p>
+
+                                            <p style="color: #808080;"> Phone No <span
+                                                    style="color: black;">{{this.gmm}}
+                                                </span></p>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td> -->
+
+                            <!-- <td>
+                                <table style="font-size:14px;width: 100%;">
+                                    <tbody>
+                                        <tr>
+                                            <p style="color: #808080;"> Last Name <span style="color: black;">
+                                                    {{ this.mnop }}
+                                                </span></p>
+                                            <p style="color: #808080;"> Date <span
+                                                    style="color: black;">{{this.datevalue}}
+                                                </span></p>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <h3>Temporary Address</h3>
+                                        <p style="margin: 0px 0 4px;">
+                                            {{this.lineName1}},{{this.lineName2}}
+                                        </p>
+                                        <p style="margin: 0px 0 4px;">
+                                            {{this.lineName3}}
+                                        </p>
+                                        <p style="margin: 0px 0 4px;">
+                                            {{this.cityName}},{{this.districtName}},
+                                        </p>
+                                        <p style="margin: 0px 0 4px;"> {{this.stateName}},{{this.pinCode}}</p>
+
+                                    </div>
+                                    <div class="col">
+                                        <h3>Temporary Address</h3>
+                                        <p style="margin: 0px 0 4px;">
+                                            {{this.lineName1}},{{this.lineName2}}
+                                        </p>
+                                        <p style="margin: 0px 0 4px;">
+                                            {{this.lineName3}}
+                                        </p>
+                                        <p style="margin: 0px 0 4px;">
+                                            {{this.cityName}},{{this.districtName}},
+                                        </p>
+                                        <p style="margin: 0px 0 4px;"> {{this.stateName}},{{this.pinCode}}</p>
+
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>

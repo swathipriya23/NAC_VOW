@@ -1,0 +1,170 @@
+
+
+<div class="container">
+<h2>Payment Creation</h2>
+
+ 
+    <form [formGroup]="branchPayment" (ngSubmit)="branchPaymentCreate()" autocomplete="off">
+      <div class=" row col-md-12">
+  
+                    
+                    
+        <div class="col-md-3">
+          
+          <mat-form-field>
+            <mat-label>Supplier Branch</mat-label>
+            <input matInput formControlName="supplier" autocomplete="off"[readonly] ="true" >
+  
+          </mat-form-field>
+  
+        </div>
+        <div class="col-md-3">
+          
+          <mat-form-field  (click)="getpayname()">
+            <mat-label>Pay Mode</mat-label>
+            <input #paymodeInput  matInput formControlName="paymode_id"
+                [matAutocomplete]="paymodedata">
+                <mat-icon matSuffix class="maticonsize" >unfold_more</mat-icon>
+            <mat-autocomplete #paymodedata="matAutocomplete" [displayWith]="displayPaymode"
+            (opened)="paymodeScroll()" >
+                <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let i of getPaymodeList" [value]="i"   (focusout)="paymodetype(i)" >{{i.name}} 
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+        </mat-form-field>
+  
+          
+        </div>
+        <div class="col-md-3" *ngIf="!paymode_ddflag">
+          
+         <mat-form-field >
+          <mat-label for="parent">Account Type</mat-label>
+          <mat-select formControlName="account_type">
+          <mat-option value="current">Current</mat-option>
+           <mat-option value="savings">Savings</mat-option>
+           </mat-select>
+          </mat-form-field>
+        </div>
+     
+          <div class="col-md-3" *ngIf="!paymode_ddflag">
+         
+    
+         
+            
+          <mat-form-field  (click)="getbranchnames()"  >
+            <mat-label>IFSC</mat-label>
+            <input #branchInput  #branch_id matInput formControlName="branch_id"
+                [matAutocomplete]="branchdata">
+                <mat-icon matSuffix class="maticonsize" >unfold_more</mat-icon>
+            <mat-autocomplete #branchdata="matAutocomplete" [displayWith]="displayBranch"
+            (opened)="branchScroll()">
+                <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let i of getBankbranchList" [value]="i"   (onSelectionChange)="getbranchname(i)">{{i.ifsccode}}
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+        </mat-form-field>
+        
+          </div>
+            
+        <div class="col-md-3"   *ngIf="!paymode_ddflag">
+          
+            
+              <mat-form-field >
+                <mat-label>Bank</mat-label>
+              <input matInput [readonly] ="true"   formControlName="bankname">
+              <input type="hidden" [readonly] ="true"   formControlName="bank_id">
+    
+            </mat-form-field>
+            
+  
+  
+          </div>
+  
+          <div class="col-md-3" *ngIf="!paymode_ddflag">
+          
+            <mat-form-field >
+              <mat-label>Branch</mat-label>
+              <input matInput [readonly] ="true"   formControlName="bname">
+    
+            </mat-form-field>
+          </div>
+  
+  
+        <div class="col-md-3"  *ngIf="!paymode_ddflag">
+          
+            <mat-form-field >
+              <mat-label>Account No</mat-label>
+              <input matInput  (keypress)="omit_special_char($event)" [maxlength]="maxlength" formControlName="account_no" autocomplete="off" required>
+    
+            </mat-form-field>
+            
+    
+          </div>
+          <div class="col-md-3" >
+            
+            <mat-form-field >
+              <mat-label>Beneficiary</mat-label>
+              <input matInput   min="2" max="48" formControlName="beneficiary"  type="text" (keypress)="addressvalidation($event)" autocomplete="off">
+    
+            </mat-form-field>
+    
+          </div>
+          <div class="col-md-3">
+           
+            <mat-form-field >
+              <mat-label>Remarks</mat-label>
+              <input matInput  type="text" (keypress)="addressvalidation($event)"  formControlName="remarks" autocomplete="off">
+    
+            </mat-form-field>
+    
+          </div>
+  
+  
+       
+  
+      </div>
+
+
+      <br />
+      <button mat-raised-button class="submitbtn" (click)="branchPaymentCreate()">Submit</button>
+      <button mat-raised-button class="cancelbtn" (click)="onCancelClick()">Cancel</button>
+  
+     
+  
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="text-left" style="margin-top: 3%;margin-left: 30px;">
+
+  
+  
+    
+  <button type="button"  style="border-radius: 7px;
+  border-color: black;
+  background-color: white;"  (click)="onCancelClick()"class="btn btn-light" 
+  >Cancel</button>&nbsp; &nbsp;
+  <button type="submit"  style="border-radius: 10px;
+  border-color: #f5c68b;
+  background-color: #f5c68b;" class="btn btn-light" (click)="branchPaymentCreate()" >Submit</button>
+  
+  </div> -->
+
+
+
+
+  <!-- <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" [fullScreen] = "true" type="ball-spin-clockwise">
+    <p style="color: white">Please Wait. </p>
+  </ngx-spinner> -->

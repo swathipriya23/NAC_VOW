@@ -1,0 +1,1782 @@
+<div class="Container">
+    <h2>
+        <span class="material-icons alignvertical" (click)="backnavigate()">arrow_back</span>Project Details
+    </h2>
+    <div>
+        <!-- <button  *ngIf="isShowSubmit" mat-raised-button class="applybtn btnposition" (click)="allSubmit()">Submit</button> -->
+
+
+        <button mat-flat-button *ngIf="isShowSubmit" class="applybtn btnposition" [disabled]="projectdetailsService.process" (click)="allSubmit()">
+            <mat-spinner color="warn" [diameter]="25" *ngIf="projectdetailsService.process"></mat-spinner>
+            <span *ngIf="!projectdetailsService.process">Submit</span>
+        </button>
+
+
+        <!-- <button  *ngIf="isShowSubmit" mat-raised-button class="applybtn btnposition" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Submit</button> -->
+    </div>
+    <!-- <h2> <span class="material-icons alignvertical" (click)="backnavigate()">arrow_back</span>({{detailsIdeView?.code}}) {{detailsIdeView?.title}}</h2> -->
+    
+
+
+    <div style="width: 93%;
+    margin-left: 40px;margin-top: 1%;">
+
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="true">
+    
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="font-weight: bold;">
+                        ({{code}}){{titlename}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <br>
+
+
+                <table style="width: 60%;">
+                    <tbody>
+                        <tr>
+                            <td class="detail_table_label">Commodity</td>
+                            <div class="view-text">
+                                <td>{{cat}}</td>
+                            </div>
+                            <td class="detail_table_label">SubCommodity</td>
+                            <div class="view-text">
+                                <td>{{subcat}}</td>
+                            </div>
+                        </tr>
+                        <!-- <tr>
+                            <td class="detail_table_label">Budget</td>
+                            <div class="view-text">
+                                <td>{{budget}}</td>
+                            </div>
+                            <td class="detail_table_label">Type</td>
+                            <div class="view-text">
+                                <td>{{type}}</td>
+                            </div>
+                        </tr> -->
+                        <tr>
+                            <td class="detail_table_label">Project Strat Date</td>
+                            <div class="view-text">
+                                <td> {{projectStdate |date:'dd-MMM-yyyy'}}</td>
+                            </div>
+
+                            <td class="detail_table_label">Project end Date</td>
+                            <div class="view-text">
+                                <td> {{projectEndate |date:'dd-MMM-yyyy'}}</td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td class="detail_table_label">Submission Start Date</td>
+                            <div class="view-text">
+                                <td> {{submissionStdate |date:'dd-MMM-yyyy'}}</td>
+                            </div>
+                            <td class="detail_table_label">Submission End Date</td>
+                            <div class="view-text">
+                                <td> {{submissionEndate |date:'dd-MMM-yyyy'}}</td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td class="detail_table_label">Type</td>
+                            <div class="view-text">
+                                <td>{{type}}</td>
+                            </div>
+                            <!-- <td class="detail_table_label">OnBehlaf</td>
+                            <div class="view-text">
+                                <td>{{onbehalf}}</td>
+                            </div> -->
+                        </tr>
+                        <!-- <tr> -->
+                            <!-- <td class="detail_table_label">Project Files</td> -->
+                            <!-- <div *ngFor="let file of view?.filedata;index as i" class="btn-link view-text">
+                               <span  class="btn-link" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#viewpopup"
+                               (click)="view_File(file.file_id,file.file_name)">
+                                   {{i+1}}. {{file.file_name}}
+                               </span>  
+                            </div> -->
+                            <!-- <div class="view-text">
+                                <mat-chip-list style="cursor: pointer;">
+                                    <mat-chip *ngFor="let file of view?.filedata;index as i">
+                                        <span  data-bs-toggle="modal" data-bs-target="#viewpopup"
+                                        (click)="view_File(file.file_id,file.file_name)">
+                                            {{i+1}}. {{file.file_name}}
+                                        </span> 
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div> -->
+                        <!-- </tr> -->
+                    </tbody>
+                </table>
+    
+                <!-- <div class="row">
+                    <div class="col-md-3">
+                        <p class="headingcolor"> Code <span
+                                class="namecolor">{{code}}
+                            </span></p>
+                        <p class="headingcolor"> Title <span
+                            class="namecolor">{{title | titlecase}}
+                            </span></p>
+                        <p class="headingcolor"> Budget <span
+                            class="namecolor">
+                                {{ budget}}
+                            </span></p>
+                        <p class="headingcolor"> Type <span
+                            class="namecolor">
+                                {{ type  }}
+                            </span></p>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <p class="headingcolor">Project Start Date <span
+                            class="namecolor">{{projectStdate | date:'dd-MMM-yyyy'}}</span>
+                        </p>
+                        <p class="headingcolor"> Project End Date<span
+                            class="namecolor">{{projectEndate |date:'dd-MMM-yyyy'}}
+                            </span></p>
+                        <p class="headingcolor">Submission Start Date <span
+                            class="namecolor">{{ submissionStdate |date:'dd-MMM-yyyy'}}
+                            </span></p>
+                        <p class="headingcolor">Submission End Date <span
+                            class="namecolor">{{ submissionEndate |date:'dd-MMM-yyyy'}}
+                            </span></p>
+                    </div>
+                    
+    
+                </div> -->
+            </mat-expansion-panel>
+        </mat-accordion>
+
+
+        <mat-accordion class="example-headers-align" >
+            <mat-expansion-panel [expanded]="false">
+    
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="font-weight: bold;">
+                        Project Note
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <br>
+
+
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <div>
+                                <td [innerHtml]="note">{{note}}</td>
+                                <!-- <td>{{note}}</td> -->
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-accordion class="example-headers-align" >
+            <mat-expansion-panel [expanded]="false">
+    
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="font-weight: bold;">
+                        More
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <br>
+
+
+                <table>
+                    <tbody>
+                        <!-- <tr> -->
+                            <!-- <td class="detail_table_label">Code</td>
+                            <div class="view-text">
+                                <td>{{code}}</td>
+                            </div> -->
+
+                            <!-- <td class="detail_table_label">Category</td>
+                            <div class="view-text">
+                                <td>{{cat}}</td>
+                            </div>
+                            <td class="detail_table_label">SubCategory</td>
+                            <div class="view-text">
+                                <td>{{subcat}}</td>
+                            </div> -->
+                        <!-- </tr> -->
+                        <tr>
+                            <td class="detail_table_label">Description</td>
+                            <div class="view-text">
+                                <td>{{desc}}</td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td class="detail_table_label">Attachments</td>
+                            <div class="view-text">
+                                <mat-chip-list>
+                                    <mat-chip *ngFor="let file of view?.filedata;index as i" style="cursor: pointer;">
+                                        <span 
+                                        (click)="view_fileDownload(file.file_id,file.file_name)">
+                                            {{i+1}}. {{file.file_name}}
+                                        </span> 
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    
+
+
+    <br/>
+
+    <!-- <button *ngIf="issubmitproposalbutton"class="submitpoposaltext" mat-raised-button class="applybtn" (click)="applySubmitproposal()">Submit Proposal</button>
+    <button mat-raised-button class="applybtn buttontext" (click)="apply()">Apply</button> -->
+    <!-- <div class="buttontext">
+        <button mat-raised-button class="applybtn" (click)="apply()">Apply</button>
+    </div> -->
+    <div *ngIf="issubmitproposalbutton" class="addbtnposition">
+        <button mat-flat-button class="applybtn" (click)="submitProposal()">Create Proposal</button>
+
+        
+        <!-- <button mat-flat-button class="applybtn" [disabled]="vowService.process" (click)="submitProposal()">
+            <mat-spinner color="warn" [diameter]="25" *ngIf="vowService.process"></mat-spinner>
+            <span *ngIf="!vowService.process">Create Proposal</span>
+        </button> -->
+    </div>
+    <br/>
+
+    <!-- <nav>
+        <div class="nav nav-tabs">
+        <a class="nav-item nav-link active" data-toggle="tab" (click)="Proposal()">Proposal</a>
+        <a class="nav-item nav-link" data-toggle="tab" (click)="Conversation()">Conversation</a>
+
+        </div>
+    </nav>
+    <br/> -->
+
+    <!-- <nav>
+        <div class="nav nav-tabs" style="margin-top: 1%;">
+            <span class="nav-item nav-link " data-toggle="tab" (click)="subModuleData(sub)" role="tab"
+                *ngFor="let sub of prpomasterList">
+                {{sub.name}}
+            </span>
+        </div>
+    </nav> -->
+    <div *ngIf="isViewMenu">
+        <mat-tab-group>
+            <mat-tab *ngFor="let tab of asyncTabs ">
+                <ng-template mat-tab-label><span (click)="get_tabe($event, tab)">{{tab.tab_name}} </span></ng-template>
+                <br/>
+                <div *ngIf="tab.tab_name=='Proposal'" class="viewtable">
+                    <div class="resubmitpoposaltext">
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Version</mat-label>
+                                        <mat-select>
+                                            <mat-option *ngFor="let version of versionList" (click)="selectVersion(version)" [value]="version.id">
+                                              {{version.version}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <button *ngIf="isactionButton" mat-icon-button matTooltip="Edit"
+                                       class="iconbutton" (click)="reSubmitButton()"color="primary">
+                                     <mat-icon style="color:black;" aria-label="Edit">edit</mat-icon>
+                                    </button>
+                                    <!-- <button mat-raised-button class="applybtn" (click)="reSubmitButton()">ReSubmit</button> -->
+                                </div>
+                                
+                            </div> 
+                        </div>
+                </div>
+                <br>
+                <br>
+                    <div *ngIf="isProposal" style="width: 95%;margin-top: 1%;margin-left: 23px;">
+                        <mat-accordion class="example-headers-align">
+                            <mat-expansion-panel [expanded]="true">
+                    
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title style="font-weight: bold;">
+                                        Proposal Details
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <br>
+                
+                
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="detail_table_label">Bid Amount</td>
+                                            <div class="view-text">
+                                                <td>{{viewproposalList?.budget | number:'1.2-2' }}</td>
+                                            </div>
+                                            
+                                            <!-- <td class="detail_table_label">Submitted Date</td>
+                                            <div class="view-text">
+                                                <td>{{viewproposalList?.submitted_date  |date:'dd-MMM-yyyy'}}</td>
+                                            </div> -->
+                                        </tr>
+                                        <tr>
+                                            <td class="detail_table_label">Proposal Code</td>
+                                            <div class="view-text">
+                                                <td>{{viewproposalList?.code}}</td>
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                             <td class="detail_table_label">Submitted Date</td>
+                                            <div class="view-text">
+                                                <td>{{viewproposalList?.submitted_date  |date:'dd-MMM-yyyy'}}</td>
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                            <!-- <span style="color: #808080;margin-top: 0%;width: 50%;">Attachments:<i class="fa fa-download"></i></span> -->
+                                            <td class="detail_table_label">Attachments 
+                                                <!-- <span class="material-icons">
+                                                    file_download
+                                                </span> -->
+                                            </td>
+                                            <div class="view-text">
+                                                <mat-chip-list>
+                                                    <mat-chip *ngFor="let upload of viewproposalList?.filedata;index as i" style="cursor: pointer;">
+                                                        <span
+                                                        (click)="view_fileDownload(upload.file_id,upload.file_name)">
+                                                            {{i+1}}. {{upload.file_name}}
+                                                        </span> 
+                                                    </mat-chip>
+                                                </mat-chip-list>
+                                            </div>
+                                            <!-- <div *ngFor="let upload of viewproposalList?.filedata;index as i" class="btn-link view-text">
+                                               <span  class="btn-link" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#viewpopup"
+                                               (click)="view_File(upload.file_id,upload.file_name)">
+                                                   {{i+1}}. {{upload.file_name}}
+                                               </span>  
+                                            </div> -->
+                                       <!-- <tr *ngFor="let multifile of fileList;index as i">
+                                        <span  class="btn-link" style="cursor: pointer;"
+                                                (click)="docUpdateFile(multifile.id,multifile.file_name)">
+                                                {{i+1}}. {{multifile.file_name}}
+                    
+                                        </span>
+                                        </tr> -->
+                                        </tr>
+                                        <!-- <tr>
+                                            <td class="detail_table_label">Note</td>
+                                            <div class="view-text">
+                                                <td [innerHtml]="viewproposalList?.covernote.note">{{viewproposalList?.covernote.note}}</td>
+                                            </div>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion class="example-headers-align">
+                            <mat-expansion-panel [expanded]="false">
+                    
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title style="font-weight: bold;">
+                                        Proposal Note
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <br>
+                
+                
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <div>
+                                                <td [innerHtml]="viewproposalList?.covernote.note">{{viewproposalList?.covernote.note}}</td>
+                                            </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion class="example-headers-align">
+                            <mat-expansion-panel [expanded]="false">
+                    
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title style="font-weight: bold;">
+                                        Execution Note
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <br>
+                
+                
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <div>
+                                                <td [innerHtml]="viewproposalList?.execution_note.note">{{viewproposalList?.execution_note.note}}</td>
+                                            </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion class="example-headers-align">
+                            <mat-expansion-panel [expanded]="false">
+                    
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title style="font-weight: bold;">
+                                        Financial Note
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <br>
+                
+                
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <div>
+                                                <td [innerHtml]="viewproposalList?.financial_note.note">{{viewproposalList?.financial_note.note}}</td>
+                                            </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                </div>
+                <div *ngIf="tab.tab_name=='Conversation'" class="viewtable">
+                    <div *ngIf="isComments">
+                        <h2>Comments</h2>
+                
+                        <form [formGroup]="commentForm">
+                            <div class="row">
+                               <div class="col-md-9">
+                                <textarea class="form-control z-depth-1" rows="3" formControlName="comment"
+                                placeholder="Your reply to the Proposal..."></textarea>
+                                <input type="file" #commentfileInput id="uploadFile" class="choose-file" style="width: 50%;margin-top: 10px;"
+                                (change)="onFileSelect_comment($event)" name="uploadFile" multiple="multiple" />
+                               </div>
+                               <div class="col-md-3">
+                                <button type="button" class="btn btn-light" (click)="onclickComment()"
+                            style="border-radius: 10px; cursor: pointer;margin-top: 10px;
+                            border-color: #f5c68b; 
+                        background-color: #f5c68b;"><span></span> Comment
+                                </button>
+                               
+                               </div>
+                            </div>
+                            
+                            <!-- <textarea class="form-control z-depth-1" rows="3" formControlName="comment"
+                                placeholder="Your reply to the Proposal..."></textarea> -->
+                
+                            <!-- <input type="file" #fileInput id="uploadFile" class="choose-file" style="width: 50%;margin-top: 10px;"
+                                (change)="onFileSelect_comment($event)" name="uploadFile" multiple="multiple" /> -->
+                            
+                            <!-- <button type="button" class="btn btn-light" (click)="onclickComment()"
+                                style="border-radius: 20px; cursor: pointer;margin-top: 7px;margin-left: 5rem;
+                                border-color: #f5c68b; 
+                            background-color: #f5c68b;"><span></span> Comment
+                            </button> -->
+                        </form>
+                        <table class="table" fixed-header>
+                            <tbody>
+                                <ul *ngFor="let docInfo of projectCommentsList; index as i"
+                                style="margin-top: 1%;width: 100%;  border: 1px solid #ddd; padding: 10px;">
+                                <div class="row">
+                                    <div class="col">
+                                        <strong [ngStyle]="{'color':docInfo?.is_user === true ? '#673ab7' : '#007462' }">{{docInfo?.created_by.full_name}}</strong>
+                                            <small class="rightsidemargin"><span
+                                                    class="material-icons timeschedule">schedule</span>{{docInfo?.created_date
+                                                        | date:'dd-MMM-yyyy h:mm a'}}
+                                            </small>
+                                    </div>
+                                </div>
+                               
+                                <div class="commentsviewspace">
+                                    {{docInfo?.comment}}
+                                </div>
+                
+                                <strong>Attachment(s)</strong>
+                                <mat-chip-list class="chipfile">
+                                        <mat-chip *ngFor="let file of docInfo?.file_data ;index as i;" style="cursor: pointer;">
+                                            <span
+                                            (click)="view_fileDownload(file.file_id,file.file_name)">
+                                                {{i+1}}. {{file.file_name}}
+                                            </span> 
+                                        </mat-chip>
+                                </mat-chip-list>
+
+                                <small style="font-size:large;cursor: pointer;float: right;">
+                                    <span class="material-icons" (click)="onclickReplyIcon()">
+                                            reply
+                                    </span> 
+                                </small>
+                
+                                    <div>
+                                        <!-- <div class="container bg-light p-5"> -->
+                                            <form [formGroup]="replyForm">
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <textarea formControlName="comment" style="width: 100%;"></textarea>
+                                                        <input type="file" #replyfileInput id="uploadFile" class="choose-file" style="width: 50%;margin-top: 10px;"
+                                                (change)="onFileSelect_reply($event)" name="uploadFile" multiple="multiple" />
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <button type="submit"  (click)="onclickReply(docInfo.id)" style="border-radius: 10px;margin-top: 10px;
+                                                    border-color: #f5c68b;
+                                                    background-color: #f5c68b;" class="btn btn-light">Reply</button>
+                                                    </div>
+                                                </div>
+                                                <!-- <textarea formControlName="comment" style="width: 90%;"></textarea> -->
+                                                <!-- <input type="file" #fileInput id="uploadFile" class="choose-file" style="width: 50%;margin-top: 10px;"
+                                                (change)="onFileSelect_reply($event)" name="uploadFile" multiple="multiple" /> -->
+                                                <!-- <button type="submit"  (click)="onclickReply()"style="border-radius: 10px;margin-left: 10px;
+                                                    border-color: #f5c68b; 
+                                                    background-color: #f5c68b;" class="btn btn-light">Reply</button> -->
+                                            </form>
+                                    </div>        
+                                            
+                                            <div *ngIf="docInfo?.reply.length > 0" class="container-fluid p-2"  style="background-color: #E9ECEF;margin-top: 1%;">
+                                                <ul *ngFor="let reply of docInfo?.reply" style="width: 100%;  border: 1px solid #ddd; padding: 15px;">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <strong [ngStyle]="{'color':reply?.is_user === true ? '#673ab7' : '#007462' }">{{reply?.created_by.full_name}}</strong>
+                                                                <small class="rightsidemargin"><span
+                                                                        class="material-icons timeschedule">schedule</span>{{reply?.created_date
+                                                                            | date:'dd-MMM-yyyy h:mm a'}}
+                                                                </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="commentsviewspace">
+                                                       {{reply?.comment}}
+                                                    </div>
+                                    
+                                                    <strong>Attachment(s)</strong>
+                                                        <mat-chip-list class="chipfile">
+                                                            <mat-chip *ngFor="let replyfile of reply?.file_data ;index as i;" style="cursor: pointer;">
+                                                                <span
+                                                                (click)="view_fileDownload(replyfile.file_id,replyfile.file_name)">
+                                                                    {{i+1}}. {{replyfile.file_name}}
+                                                                </span> 
+                                                            </mat-chip>
+                                                        </mat-chip-list>
+                                                </ul>
+                                            </div>
+                                  
+                
+                                </ul>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="tab.tab_name== 'Questionnaire'" class="viewtable">
+                    <div *ngIf="isQusetn">
+                        <!-- <div> -->
+                                <!-- <div class="row">
+                                    <div class="col-md-2">
+                                        <mat-form-field>
+                                            <mat-label>Type</mat-label>
+                                            <mat-select>
+                                                <mat-option *ngFor="let qustn of qustnTypeList" (click)="selectQustn(qustn)" [value]="qustn.id">
+                                                  {{qustn.type_id.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>  -->
+                                <nav>
+                                    <div class="nav nav-tabs" style="margin-top: 1%;">
+                                        <span class="nav-item nav-link" data-toggle="tab" (click)="selectQustn(qustn)" role="tab"
+                                            *ngFor="let qustn of qustnTypeList">
+                                            {{qustn.type.name}}
+                                    </span>
+                                    </div>
+                               </nav>
+                        <!-- </div> -->
+                        <br/>
+                        <br/>
+
+                       
+
+
+                    <div class="table-responsive" *ngFor="let question of qustnlist; let i = index; ">
+                        <!-- <div *ngIf="i == question.index"> -->
+                            <table class="table table_text table-bordered">
+                                <thead class="table_header">
+                                    <tr>
+                                        <th *ngFor="let header of question['header'];let j = index">
+                                            {{header.name}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let td of question['questions'];let k=index;">
+                                        <td style="padding: 20px;">{{k+1}}</td>
+                                        <td style="padding: 20px;">
+                                            {{td.text}}
+                                            <!-- <p>{{td.text}}</p><br>
+                                            <div class="marginleft" *ngFor="let sub of td['sub_options'];let j=index">
+                                                <p>{{k+1}}.{{j+1}} {{sub.options}}</p><br>
+                                            </div> -->
+                                            <div class="subqustn_poistion" *ngFor="let sub of td['sub_question'];let l=index;">
+                                               <td>{{k+1}}.{{l+1}}</td>
+                                               <td>{{sub.text}}</td>
+                                            </div>
+                                        </td>
+                                        <td>
+                                        
+
+                                               <!-- <div *ngIf="td.ans.id ; else elsepart ">
+                                                {{td.ans.answer}}
+                                               </div>
+                                               <ng-template #elsepart>
+                                                <mat-form-field class="inputwidth" appearance="standard">
+                                                    <input matInput placeholder="Answer"
+                                                     [ngModel]="td.ans"
+                                                    (ngModelChange)="td.ans = $event">
+                                                </mat-form-field>
+                                               </ng-template> -->
+
+                                               <div *ngIf="td.key == 'No' ; else elsepart ">
+                                                
+                                                    <!-- <mat-form-field class="inputwidth" appearance="standard">
+                                                        <input matInput placeholder="Answer"
+                                                         [ngModel]="td.ans"
+                                                        (ngModelChange)="td.ans = $event">
+                                                    </mat-form-field> -->
+                                                
+                                               
+
+
+
+
+                                               
+
+
+                                                <div *ngIf="td.input_type == '2'">
+                                                   <!-- textbox -->
+                                                    <mat-form-field class="inputwidth">
+                                                        <input matInput placeholder="Answer"
+                                                         [ngModel]="td.ans"
+                                                        (ngModelChange)="td.ans = $event">
+                                                    </mat-form-field>
+    
+                                                </div>
+                                                <!-- radio button -->
+                                                <div *ngIf="td.input_type == '3'">
+                                                   
+                                                    <mat-radio-group aria-label="Select an option" [(ngModel)]="td.ans">
+                                                        <mat-radio-button *ngFor="let opt of td.sub_option"
+                                                            [value]="opt.id">{{opt.options}}</mat-radio-button>
+    
+                                                    </mat-radio-group>
+    
+                                                </div>
+                                                <!-- drop down -->
+                                                <div *ngIf="td.input_type  == '4'">
+                                                    <mat-form-field class="inputwidth">
+                                                        <mat-select [(ngModel)]="td.ans">
+                                                            <mat-option *ngFor="let opt of td.sub_option" [value]="opt.id">
+                                                                {{opt.options}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                 <!-- text area -->
+                                                <div *ngIf="td.input_type  == '5'">
+                                                    <mat-form-field class="inputwidth">
+                                                        <textarea matInput [ngModel]="td.ans"
+                                                        (ngModelChange)="td.ans = $event"
+                                                            placeholder="Enter answer"></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                                
+                                                <!-- number -->
+                                                <div *ngIf="td.input_type  == '6'">
+                                                    <mat-form-field class="inputwidth">
+                                                        <input matInput placeholder="Answer"
+                                                         [ngModel]="td.ans"
+                                                        (ngModelChange)="td.ans = $event">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <!-- file -->
+                                                <div *ngIf="td.input_type == '8'">
+                                                    <mat-form-field class="inputwidth">
+                                                        <input matInput placeholder="Answer"
+                                                         [ngModel]="td.ans"
+                                                        (ngModelChange)="td.ans = $event">
+                                                    </mat-form-field>
+
+                                                    <input type="file" (change)="questionFileChange($event, td)"
+                                                        multiple>
+                                                    <br>
+                                                </div>
+
+
+
+
+
+
+
+
+                                                <div *ngFor="let sub of td['sub_question'];let m=index">
+                                                
+                                                   
+                                                    <div *ngIf="sub.input_type == '2'">
+                                                        <!-- textbox -->
+                                                         <mat-form-field class="inputwidth">
+                                                             <input matInput placeholder="Answer"
+                                                              [ngModel]="sub.ans"
+                                                             (ngModelChange)="sub.ans = $event">
+                                                         </mat-form-field>
+         
+                                                     </div>
+                                                     <!-- radio button -->
+                                                     <div *ngIf="sub.input_type == '3'">
+                                                        
+                                                         <mat-radio-group aria-label="Select an option" [(ngModel)]="sub.ans">
+                                                             <mat-radio-button *ngFor="let opt of sub.sub_option"
+                                                                 [value]="opt.id">{{opt.options}}</mat-radio-button>
+         
+                                                         </mat-radio-group>
+         
+                                                     </div>
+                                                     <!-- drop down -->
+                                                     <div *ngIf="sub.input_type  == '4'">
+                                                         <mat-form-field class="inputwidth">
+                                                             <mat-select [(ngModel)]="sub.ans">
+                                                                 <mat-option *ngFor="let opt of sub.sub_option" [value]="opt.id">
+                                                                     {{opt.options}}</mat-option>
+                                                             </mat-select>
+                                                         </mat-form-field>
+                                                     </div>
+                                                      <!-- text area -->
+                                                     <div *ngIf="sub.input_type  == '5'">
+                                                         <mat-form-field class="inputwidth">
+                                                             <textarea matInput [ngModel]="sub.ans"
+                                                             (ngModelChange)="sub.ans = $event"
+                                                                 placeholder="Enter answer"></textarea>
+                                                         </mat-form-field>
+                                                     </div>
+                                                     
+                                                     <!-- number -->
+                                                     <div *ngIf="sub.input_type  == '6'">
+                                                         <mat-form-field class="inputwidth">
+                                                             <input matInput placeholder="Answer"
+                                                              [ngModel]="sub.ans"
+                                                             (ngModelChange)="sub.ans = $event">
+                                                         </mat-form-field>
+                                                     </div>
+     
+                                                     <!-- file -->
+                                                     <div *ngIf="sub.input_type == '8'">
+                                                         <mat-form-field class="inputwidth">
+                                                             <input matInput placeholder="Answer"
+                                                              [ngModel]="sub.ans"
+                                                             (ngModelChange)="sub.ans = $event">
+                                                         </mat-form-field>
+     
+                                                         <input type="file" (change)="sub_questionFileChange($event, sub)"
+                                                             multiple>
+                                                         <br>
+                                                     </div>
+                                                </div>
+
+
+
+
+
+
+
+
+
+
+                                               </div> 
+                                               <ng-template #elsepart>
+                                                <!-- <mat-form-field class="inputwidth" appearance="standard">
+                                                    <input matInput placeholder="Answer"
+                                                     [ngModel]="td.ans.answer"
+                                                    (ngModelChange)="td.ans.answer = $event">
+                                                </mat-form-field> -->
+                                                 <!-- {{td.ans.answer}} -->
+                                                 <div *ngIf="td.input_type == '2'">
+                                                    <!-- textbox -->
+                                                    <div *ngIf="td.ans == null; else patched">
+                                                        <mat-form-field class="inputwidth">
+                                                            <input matInput placeholder="Answer"
+                                                            [ngModel]="td.ans"
+                                                            (ngModelChange)="td.ans = $event">
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <ng-template #patched>
+                                                        <mat-form-field class="inputwidth">
+                                                            <input matInput placeholder="Answer"
+                                                            [ngModel]="td.ans.answer"
+                                                            (ngModelChange)="td.ans.answer = $event">
+                                                        </mat-form-field>
+                                                    </ng-template>
+                                                 </div>
+                                                 <!-- radio button -->
+                                                 <div *ngIf="td.input_type == '3'">
+                                                    <div *ngIf="td.ans == null; else patched">
+                                                        <mat-radio-group aria-label="Select an option" [(ngModel)]="td.ans">
+                                                            <mat-radio-button *ngFor="let opt of td.sub_option"
+                                                                [value]="opt.id">{{opt.options}}</mat-radio-button>
+        
+                                                        </mat-radio-group>
+                                                    </div>
+                                                    <ng-template #patched>
+                                                        <mat-radio-group aria-label="Select an option" [(ngModel)]="td.ans.answer">
+                                                            <mat-radio-button *ngFor="let opt of td.sub_option"
+                                                                [value]="opt.id">{{opt.options}}</mat-radio-button>
+        
+                                                        </mat-radio-group>
+                                                    </ng-template>
+                                                     
+     
+                                                 </div>
+                                                 <!-- drop down -->
+                                                 <div *ngIf="td.input_type  == '4'">
+                                                    <div *ngIf="td.ans == null; else patched">
+                                                        <mat-form-field class="inputwidth">
+                                                            <mat-select [(ngModel)]="td.ans">
+                                                                <mat-option *ngFor="let opt of td.sub_option" [value]="opt.id">
+                                                                    {{opt.options}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <ng-template #patched>
+                                                        <mat-form-field class="inputwidth">
+                                                            <mat-select [(ngModel)]="td.ans.answer">
+                                                                <mat-option *ngFor="let opt of td.sub_option" [value]="opt.id">
+                                                                    {{opt.options}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </ng-template>
+                                                 </div>
+                                                  <!-- text area -->
+                                                 <div *ngIf="td.input_type  == '5'">
+                                                    <div *ngIf="td.ans == null; else patched">
+                                                        <mat-form-field class="inputwidth">
+                                                            <textarea matInput [ngModel]="td.ans"
+                                                            (ngModelChange)="td.ans = $event"
+                                                                placeholder="Enter answer"></textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <ng-template #patched>
+                                                        <mat-form-field class="inputwidth">
+                                                            <textarea matInput [ngModel]="td.ans.answer"
+                                                            (ngModelChange)="td.ans.answer = $event"
+                                                                placeholder="Enter answer"></textarea>
+                                                        </mat-form-field>
+                                                    </ng-template>
+                                                    
+                                                 </div>
+                                                 
+                                                 <!-- number -->
+                                                 <div *ngIf="td.input_type  == '6'">
+                                                    <div *ngIf="td.ans == null; else patched">
+                                                        <mat-form-field class="inputwidth">
+                                                            <input matInput placeholder="Answer"
+                                                             [ngModel]="td.ans"
+                                                            (ngModelChange)="td.ans = $event">
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <ng-template #patched>
+                                                        <mat-form-field class="inputwidth">
+                                                            <input matInput placeholder="Answer"
+                                                             [ngModel]="td.ans.answer"
+                                                            (ngModelChange)="td.ans.answer = $event">
+                                                        </mat-form-field>
+                                                    </ng-template>
+                                                    
+                                                 </div>
+ 
+                                                 <!-- file -->
+                                                 <div *ngIf="td.input_type == '8'">
+                                                    <div *ngIf="td.ans == null; else patched">
+                                                        <mat-form-field class="inputwidth">
+                                                            <input matInput placeholder="Answer"
+                                                             [ngModel]="td.ans"
+                                                            (ngModelChange)="td.ans = $event">
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <ng-template #patched>
+                                                        <mat-form-field class="inputwidth">
+                                                            <input matInput placeholder="Answer"
+                                                             [ngModel]="td.ans.answer"
+                                                            (ngModelChange)="td.ans.answer = $event">
+                                                        </mat-form-field>
+                                                    </ng-template>
+                                                     
+
+                                                     <input type="file" multiple>
+                                                     
+                                                     <span class="material-icons" style="cursor: pointer;" (click)="qustnimageView(td)"
+                                                     data-bs-toggle="modal" data-bs-target="#questionmodel">
+                                                        image
+                                                    </span>
+                                                 </div>
+
+
+                                                 <div *ngFor="let sub of td['sub_question'];let m=index">
+                                                
+                                                   
+                                                    <div *ngIf="sub.input_type == '2'">
+                                                        <!-- textbox -->
+                                                        <div *ngIf="sub.ans == null; else patched">
+                                                            <mat-form-field class="inputwidth">
+                                                                <input matInput placeholder="Answer"
+                                                                [ngModel]="sub.ans"
+                                                                (ngModelChange)="sub.ans = $event">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <ng-template #patched>
+                                                            <mat-form-field class="inputwidth">
+                                                                <input matInput placeholder="Answer"
+                                                                [ngModel]="sub.ans.answer"
+                                                                (ngModelChange)="sub.ans.answer = $event">
+                                                            </mat-form-field>
+                                                        </ng-template>
+         
+                                                     </div>
+                                                     <!-- radio button -->
+                                                     <div *ngIf="sub.input_type == '3'">
+                                                        <div *ngIf="sub.ans == null; else patched">
+                                                            <mat-radio-group aria-label="Select an option" [(ngModel)]="sub.ans">
+                                                                <mat-radio-button *ngFor="let opt of sub.sub_option"
+                                                                    [value]="opt.id">{{opt.options}}</mat-radio-button>
+            
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <ng-template #patched>
+                                                            <mat-radio-group aria-label="Select an option" [(ngModel)]="sub.ans.answer">
+                                                                <mat-radio-button *ngFor="let opt of sub.sub_option"
+                                                                    [value]="opt.id">{{opt.options}}</mat-radio-button>
+            
+                                                            </mat-radio-group>
+                                                        </ng-template>
+                                                     </div>
+                                                     <!-- drop down -->
+                                                     <div *ngIf="sub.input_type  == '4'">
+                                                        <div *ngIf="sub.ans == null; else patched">
+                                                            <mat-form-field class="inputwidth">
+                                                                <mat-select [(ngModel)]="sub.ans">
+                                                                    <mat-option *ngFor="let opt of sub.sub_option" [value]="opt.id">
+                                                                        {{opt.options}}</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <ng-template #patched>
+                                                            <mat-form-field class="inputwidth">
+                                                                <mat-select [(ngModel)]="sub.ans.answer">
+                                                                    <mat-option *ngFor="let opt of sub.sub_option" [value]="opt.id">
+                                                                        {{opt.options}}</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </ng-template>
+                                                         
+                                                     </div>
+                                                      <!-- text area -->
+                                                     <div *ngIf="sub.input_type  == '5'">
+                                                        <div *ngIf="sub.ans == null; else patched">
+                                                            <mat-form-field class="inputwidth">
+                                                                <textarea matInput [ngModel]="sub.ans"
+                                                                (ngModelChange)="sub.ans = $event"
+                                                                    placeholder="Enter answer"></textarea>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <ng-template #patched>
+                                                            <mat-form-field class="inputwidth">
+                                                                <textarea matInput [ngModel]="sub.ans.answer"
+                                                                (ngModelChange)="sub.ans.answer = $event"
+                                                                    placeholder="Enter answer"></textarea>
+                                                            </mat-form-field>
+                                                        </ng-template>
+                                                        
+                                                     </div>
+                                                     
+                                                     <!-- number -->
+                                                     <div *ngIf="sub.input_type  == '6'">
+                                                        <div *ngIf="sub.ans == null; else patched">
+                                                            <mat-form-field class="inputwidth">
+                                                                <input matInput placeholder="Answer"
+                                                                 [ngModel]="sub.ans"
+                                                                (ngModelChange)="sub.ans = $event">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <ng-template #patched>
+                                                            <mat-form-field class="inputwidth">
+                                                                <input matInput placeholder="Answer"
+                                                                 [ngModel]="sub.ans.answer"
+                                                                (ngModelChange)="sub.ans.answer = $event">
+                                                            </mat-form-field>
+                                                        </ng-template>
+                                                     </div>
+     
+                                                     <!-- file -->
+                                                     <div *ngIf="sub.input_type == '8'">
+                                                        <div *ngIf="sub.ans == null; else patched">
+                                                            <mat-form-field class="inputwidth">
+                                                                <input matInput placeholder="Answer"
+                                                                 [ngModel]="sub.ans"
+                                                                (ngModelChange)="sub.ans = $event">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <ng-template #patched>
+                                                            <mat-form-field class="inputwidth">
+                                                                <input matInput placeholder="Answer"
+                                                                 [ngModel]="sub.ans.answer"
+                                                                (ngModelChange)="sub.ans.answer = $event">
+                                                            </mat-form-field>
+                                                        </ng-template>
+
+                                                         <input type="file" multiple>
+     
+                                                         <span class="material-icons" style="cursor: pointer;" (click)="sub_qustnimageView(sub)"
+                                                         data-bs-toggle="modal" data-bs-target="#sub_questionmodel">
+                                                            image
+                                                        </span>
+                                                     </div>
+                                                </div>
+
+                                               </ng-template>
+                                           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                               
+                                            <!-- <br> 
+                                            <div *ngFor="let sub of td['sub_options'];let j=index">
+                                                <div>
+                                                    <mat-form-field class="inputwidth" appearance="standard">
+                                                        <input matInput>
+                                                    </mat-form-field>
+                                                </div>
+                                                <br>
+                                            </div> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div style="margin-bottom: 25px; margin-top: 30px;">
+   
+                                <button type="button" class="btn btn-light" [routerLink]='"/atma/vendorView"' skipLocationChange style="border-radius: 7px;margin-left: 10px;
+                                                border-color: black;
+                                                background-color: white;"  >Back</button>
+                                <button type="submit" style="border-radius: 10px;margin-left: 10px;
+                                            border-color: #f5c68b;
+                                            background-color: #f5c68b;" (click)="questionsubmit(question)" class="btn btn-light">Submit</button>
+                            </div> -->
+                        <!-- </div> -->
+                        <button mat-raised-button  class="applybtn" (click)="SubmitQustn(question)">Save</button>
+                    </div>
+
+
+                    <!-- <br/>
+                    <button  *ngIf= "isShowSelected" mat-raised-button class="applybtn" (click)="SubmitQustn()">Submit</button> -->
+                        
+
+
+
+
+
+
+
+                    </div>
+                </div>
+                <div *ngIf="tab.tab_name== 'Legal Agreement'" class="viewtable">
+               
+                <div  *ngIf="isShow_legalAgreementGet">
+
+
+                    <p style="color: #808080; margin: 0px 0 4px;"> Accepted: <span
+                        style="color: black;">{{key}}
+                    </span></p>
+                    <p style="color: #808080; margin: 0px 0 4px;margin-left: 110px;
+                    margin-top: -40px;"> Legal Agreement Status: 
+
+                        <!-- [ngStyle]="{'color': adcolor}" -->
+                        <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color">
+                            <mat-button-toggle [ngStyle]="{'background-color': adcolor}" value="red">Vow</mat-button-toggle>
+                            <mat-button-toggle [ngStyle]="{'background-color': adcolor1}" value="green">CMS</mat-button-toggle>
+                        </mat-button-toggle-group> 
+                        <!-- <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color">
+                            <mat-button-toggle [ngStyle]="{'background-color':this.colorkey === true ? '#e0e0e0' : ' ' }"value="red">Vow</mat-button-toggle>
+                            <mat-button-toggle [ngStyle]="{'background-color':this.colorkey === false ? '#e0e0e0' : ' ' }"value="green">CMS</mat-button-toggle>
+                        </mat-button-toggle-group>  -->
+                    </p>
+                   
+
+                        <div class="col-md-2" style="margin-left: 3%;float: right;">
+                            <form [formGroup]="agrversionform">
+                                <mat-form-field>
+                                    <mat-label>Version</mat-label>
+                                    <mat-select formControlName="agrversion">
+                                        <mat-option *ngFor="let agr_version of agreement_versionList"
+                                        (click)="selectagr_Version(agr_version)"  [value]="agr_version.id" >
+                                          {{agr_version.version}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                        <button mat-fab style="background-color: white;float: right;margin-left: 3%;" (click)="legalAgreementPDF()" aria-label="Search">
+                            <mat-icon>download</mat-icon>
+                        </button>
+        
+                        <button mat-raised-button style="float: right;margin-left: 3%;" *ngIf="this.legalList?.is_accepted != true && this.legalList?.is_return != false"  [disabled]="projectdetailsService.process" (click)="Return()">
+                            <mat-spinner color="warn" [diameter]="25" *ngIf="projectdetailsService.process"></mat-spinner>
+                            <span *ngIf="!projectdetailsService.process">Return</span>
+                        </button> 
+
+                        <button mat-flat-button style="float: right;" *ngIf="this.legalList?.is_accepted != true && this.legalList?.is_return != false" class="applybtn"  [disabled]="projectdetailsService.process" (click)="Accept()">
+                            <mat-spinner color="warn" [diameter]="25" *ngIf="projectdetailsService.process"></mat-spinner>
+                            <span *ngIf="!projectdetailsService.process">Accept</span>
+                        </button>
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+                        <!-- <button mat-fab style="margin-left: 20px;background-color: white;" (click)="legalAgreementPDF()" aria-label="Search">
+                            <mat-icon>download</mat-icon>
+                        </button>
+                
+                    <mat-button-toggle-group style="margin-left: 15%;" name="favoriteColor" aria-label="Favorite Color">
+                        <mat-button-toggle [ngStyle]="{'background-color':this.colorkey === true ? '#e0e0e0' : ' ' }"value="red">Vow</mat-button-toggle>
+                        <mat-button-toggle [ngStyle]="{'background-color':this.colorkey === false ? '#e0e0e0' : ' ' }"value="green">CMS</mat-button-toggle>
+                    </mat-button-toggle-group> 
+               
+               
+                <button mat-flat-button *ngIf="this.legalList?.is_accepted != true && this.legalList?.is_return != false" class="applybtn" style="margin-left: 10%;" [disabled]="projectdetailsService.process" (click)="Accept()">
+                    <mat-spinner color="warn" [diameter]="25" *ngIf="projectdetailsService.process"></mat-spinner>
+                    <span *ngIf="!projectdetailsService.process">Accept</span>
+                </button>
+
+                <button mat-raised-button *ngIf="this.legalList?.is_accepted != true && this.legalList?.is_return != false" style="margin-left: 10%;" [disabled]="projectdetailsService.process" (click)="Return()">
+                    <mat-spinner color="warn" [diameter]="25" *ngIf="projectdetailsService.process"></mat-spinner>
+                    <span *ngIf="!projectdetailsService.process">Return</span>
+                </button>
+
+                <div class="col-md-2" style="margin-left: 10%;float: right;">
+                    <form [formGroup]="agrversionform">
+                        <mat-form-field>
+                            <mat-label>Version</mat-label>
+                            <mat-select formControlName="agrversion">
+                                <mat-option *ngFor="let agr_version of agreement_versionList"
+                                (click)="selectagr_Version(agr_version)"  [value]="agr_version.id" >
+                                  {{agr_version.version}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                </div>
+
+                <p style="color: #808080; margin: 0px 0 4px;float: right;"> Accepted: <span
+                    style="color: black;">{{key}}
+                </span></p> -->
+          
+                <table class="table scrolltable1 table-bordered" style="margin-top: 1%;">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <!-- <div [innerHtml]="this.legalList?.agreement">
+                                </div> -->
+                                <div data-bs-toggle="modal" [innerHtml]="contentName" data-keyboard="false" style="padding: 80px;"
+                                        data-backdrop="static" (input)="updateModel($event)" data-bs-target="#superscriptmodel"
+                                        (mouseup)="bindSelection($event)" id="para">
+                                   
+                                </div>
+                                <!-- <div data-bs-toggle="modal" [innerHtml]="this.legalList?.agreement" (click)="handleClick()"
+                                data-bs-target="#superscriptmodel">
+
+                                </div> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                <!-- <div *ngIf="tab.tab_name== 'History'">
+                    <div *ngIf="isHistory">
+                        <div class="table-responsive">
+                            <table class="table table_text">
+                                <thead class="table_header">
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Status</th>
+                                        <th>Approver</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let type of historyList; index as i">
+                                        <td> {{(paymentpresentpage - 1)*pagesizepayment +i+1 }} </td>
+                                        <td>{{i+1}}</td>
+                                        <td>
+                                            <div *ngIf="type?.approval_status?.text != null">
+                                                {{type?.approval_status?.text}}
+                                            </div>
+                                        </td>
+                                        <td>{{type?.approver?.full_name}}</td>
+                                        <td>{{type?.comments}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="historyList ?.length == 0" style="margin-left: 42%;">
+                                <h3>Sorry data not found!.. </h3>
+                            </div>
+                            <div class="row" *ngIf="ispaymentpage">
+                                <div class="col-sm-12" style="font-size: small;text-align: right; margin-bottom: 50px;">
+                                    <button mat-icon-button [disabled]="has_paymentprevious === false" color="primary"
+                                        (click)="previousClickPayment()">
+                                        <mat-icon>arrow_back</mat-icon>
+                                    </button>
+                                    {{paymentpresentpage}}
+                                    <button mat-icon-button [disabled]="has_paymentnext === false" color="primary"
+                                        (click)="nextClickPayment()">
+                                        <mat-icon>arrow_forward</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div *ngIf="tab.tab_name== 'Project Questionnaire'" class="viewtable">
+                                <nav>
+                                    <div class="nav nav-tabs" style="margin-top: 1%;">
+                                        <span class="nav-item nav-link" data-toggle="tab" (click)="selectProjcectQustn(projectqustn)" role="tab"
+                                            *ngFor="let projectqustn of prjqustnTypeList">
+                                            {{projectqustn.type.name}}
+                                        </span>
+                                    </div>
+                               </nav>
+                        <br/>
+                        <br/>                
+                    <div class="table-responsive" *ngFor="let question of vendorqustnlist; let i = index; ">
+                        <table class="table table_text table-bordered">
+                            <thead class="table_header">
+                                    <tr>
+                                        <th>Sl.No</th>
+                                        <th>Question</th>
+                                        <th>Answer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let projectqn of question['questions'];let k=index;">
+                                        <td style="padding: 20px;">{{k+1}}</td>
+                                        <td style="padding: 20px;">
+                                            {{projectqn.text}}
+                                        </td>
+                                        <td>
+                                               <div *ngIf="projectqn.key == 'No' ; else elsepart ">
+                                                <mat-form-field class="inputwidth" appearance="standard">
+                                                    <input matInput placeholder="Answer"
+                                                     [ngModel]="projectqn.ans"
+                                                    (ngModelChange)="projectqn.ans = $event">
+                                                </mat-form-field>
+                                               </div> 
+                                               <ng-template #elsepart>
+                                                <mat-form-field class="inputwidth" appearance="standard">
+                                                    <input matInput placeholder="Answer"
+                                                     [ngModel]="projectqn.ans.answer"
+                                                    (ngModelChange)="projectqn.ans.answer = $event">
+                                                </mat-form-field>
+                                               </ng-template>
+                                           
+                                        </td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                         
+                        <button mat-raised-button  class="applybtn" (click)="SubmitprojectQustn(question)">Save</button>
+                    </div>
+                </div> -->
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    
+
+
+
+
+
+ 
+    <div *ngIf="isclicked_applySubmitproposal">
+        <form [formGroup]="ApplyForm">
+            <div class="example-form">
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-label>Bid Amount</mat-label>
+                            <input matInput placeholder="Budget" formControlName="budget"
+                                autocomplete="off">
+                            <mat-hint>
+                                    <h3><mat-icon class="maticonsize">currency_rupee</mat-icon>{{ApplyForm.value.budget | number:'1.2-2'}}</h3>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div> 
+                <!-- <mat-label>Note</mat-label> -->
+                <h2>Note</h2>
+                <div formControlName="content" [ngxSummernote]="config">
+                </div> 
+                <br>
+                <h2>Execution Note</h2>
+                <!-- <mat-label>Execution Note</mat-label> -->
+                <div formControlName="execution_note" [ngxSummernote]="config">
+                </div>
+                <br>
+                <h2>Financial Note</h2>
+                <!-- <mat-label>Financial Note</mat-label> -->
+                <div formControlName="financial_note" [ngxSummernote]="config">
+                </div>
+                <br/>
+                <input type="file" #fileInput id="uploadFile1" class="choose-file"
+                    (change)="fileChange($event)" name="uploadFile1" multiple="multiple" />
+
+
+                    
+                        <tr *ngFor="let multifile of fileList;index as i">
+                            <!-- <td>{{i+1}}</td> -->
+                            <!-- <a (click)="data(multifile)" >{{ multifile.file_name}}<i class="material-icons">
+                                get_app
+                            </i></a> -->
+                            <span  class="btn-link" style="cursor: pointer;">
+                                    {{i+1}}. {{multifile.file_name}}
+        
+                            </span>
+                           
+                            <!-- <td> -->
+                                <mat-icon style="color: gray;cursor: pointer;" (click)="fileDelete(multifile,i)">delete</mat-icon>
+                            <!-- </td>  -->
+                        </tr>
+                    
+            </div>
+            
+            <br/>
+        <!-- <button mat-raised-button class="applybtn" (click)="Submit()">Save</button>
+        <button mat-raised-button class="cancelbtn" (click)="oncancelProject()">Cancel</button> -->
+
+
+         
+        <button mat-flat-button class="applybtn" [disabled]="projectdetailsService.process" (click)="save_proposal()">
+            <mat-spinner color="warn" [diameter]="25" *ngIf="projectdetailsService.process"></mat-spinner>
+            <span *ngIf="!projectdetailsService.process">Save</span>
+        </button>
+         
+        <button mat-flat-button class="cancelbtn" (click)="oncancelProject()">Cancel</button>
+        </form>
+    </div>
+
+
+   
+
+
+    
+
+
+
+
+
+    <!-- <div class="container-fluid bg-light text-light p-5">
+        <div class="container bg-light p-5">
+            <h1 class="display-4">Welcome to my Website</h1>
+            <hr>
+            <p>Go to My Website</p>
+            <a href="#" class="btn btn-primary">link</a>
+        </div>
+    </div> -->
+
+
+
+
+
+
+</div>
+
+
+
+<!-- <div *ngIf="showimageHeaderAPI" id="my-modal" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true"
+    tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" data-dismiss="modal" style="width: 60%;height: 80%;">
+        <div class="modal-content">
+            <div class="modal-header" style="background:#21cbe5;">
+                <h2 class="modal-title">Image View</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="{{jpgUrls}}" class="img-responsive" style="width: 100%;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showimagepdf" id="my-modal" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true"
+    tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background:#21cbe5;">
+                <h2 class="modal-title">PDF View</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <pdf-viewer [src]="pdfurl" [render-text]="true" [original-size]="false"
+                style="display: block;width: 800px; height: 800px;"></pdf-viewer>
+        </div>
+    </div>
+
+</div> -->
+
+
+
+
+
+<div *ngIf="showimageHeaderAPI == true" class="modal fade" id="viewpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Image  View</h5>
+          <!-- <h5 class="modal-title" id="exampleModalLabel">PDF View</h5> -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="{{jpgUrls}}" class="img-responsive" style="width: 100%;">
+            <!-- <div *ngIf= "showimageHeaderAPI">
+                <img src="{{jpgUrls}}" class="img-responsive" style="width: 100%;">
+            </div>
+            <div *ngIf= "showimagepdf">
+                <pdf-viewer [src]="pdfurl" [render-text]="true" [original-size]="false"
+                style="display: block;height: 800px;"></pdf-viewer>
+            </div> -->
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div *ngIf="showimagepdf == true" class="modal fade" id="viewpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">PDF View</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <pdf-viewer [src]="pdfurl" [render-text]="true" [original-size]="false"
+                style="display: block;height: 800px;"></pdf-viewer>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropLabel">Submit</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="popupform">
+                <table>
+                    <tr  *ngFor="let type of qustnTypeList">
+                        <td>
+                            <mat-checkbox  class="example-margin" formControlName="type" [disabled]="true">
+                                {{type.type.name}}
+                            </mat-checkbox>
+                        </td>
+
+                    </tr>
+                </table>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div *ngIf="isSuperScript">
+    <div class="modal fade" id="superscriptmodel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="staticBackdropLabel">Comments</h2>
+              <button type="button" class="btn-close" #closebutton data-bs-dismiss="modal" aria-label="Close" (click)="close()"> 
+              <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="superScriptForm">
+                    <div style="white-space: pre-wrap;">
+                        <p [innerHtml]="selectText">{{selectText}}</p>
+                    </div>
+    
+    
+                    <mat-form-field>
+                        <mat-label>Comments</mat-label>
+                        <textarea matInput placeholder="Comments" autocomplete="off" formControlName="remarks" required>
+                        </textarea>
+                    </mat-form-field>
+                    
+                </form>
+            </div> 
+            <div class="modal-footer">
+              <button *ngIf="this.last_version === this.version_count" type="button" class="btn btn-primary" (click)="superScriptFormCreate()" >Submit</button>
+              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button> -->
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+<button id="myCheck" type="button" class="btn btn-primary" #closebutton1 data-bs-toggle="modal" data-bs-target="#exampleModal"
+  style="display: none;">
+  Launch demo modal
+</button>
+
+
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="overflow-y: scroll;">
+      <div class="modal-content" style="white-space: pre-wrap;">
+          <div class="modal-header">
+            <h2 class="modal-title" id="staticBackdropLabel">Comments</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+
+          <div class="modal-body" style="white-space: pre-wrap;">
+              <p style="color: green;" [innerHtml]="title"></p>
+        
+              <div *ngIf="nonarraybool">
+                <div class="comment-box" *ngFor="let comment of commentlist;let  i=index"
+                    style=" padding-left:10px;">
+                    <form [formGroup]="superScriptCommentForm">
+                        <table style="font-size:18px;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a [ngStyle]="{'color':comment?.is_user === true ? '#673ab7' : '#007462' }" style="font-size: 15px;margin-left: 10px;">
+                                            {{comment.created_by.full_name }}
+                                           
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <!-- <small><span
+                                            class="material-icons timeschedule">schedule</span>{{formatDate(comment.created_date) | date:'dd-MMM-yyyy h:mm' }}
+                                        </small> -->
+                                        <span style="font-size: 15px;margin-left: 100px;">
+                                            {{formatDate(comment.created_date) | date:'dd-MMM-yyyy h:mm' }}
+                                            
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="2">
+                                        <span style="font-size: 15px;;margin-left: 10px;">{{comment.content}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+
+            </div>
+              
+              <form [formGroup]="superScriptCommentForm">
+
+
+
+                  <mat-form-field>
+                      <mat-label>Comments</mat-label>
+                      <textarea matInput placeholder="Comments" autocomplete="off" formControlName="comments" required>
+                  </textarea>
+                  </mat-form-field>
+
+
+
+                  <div class="modal-footer">
+                          <button *ngIf="this.last_version === this.version_count" type="button" class="btn btn-primary" (click)="commentsubmit()">Submit</button>
+                          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closepopup()">Close</button> -->
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<!-- questions pop up -->
+<div class="modal fade" id="questionmodel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="staticBackdropLabel">Files</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> 
+          <span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="table-responsive">
+                <table class="table table_text table-bordered">
+                    <thead class="table_header" >
+                        <tr>
+                            <th>S.No</th>
+                            <th>File Name</th>
+                            <th>Download File</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let file of qustnImage_List;index as i">
+                            <td>{{ i+1 }}</td>
+                            <td>{{ file?.file_name}}</td>
+                            <td>
+                                <!-- <a (click)="fileDownloadApp(file.id,file.file_name )"><i class="fa fa-download">
+                                    </i></a> -->
+                                    <span class="material-icons" style="cursor: pointer;" (click)="qustn_fileDownloadApp(file.id,file.file_name )">
+                                        download
+                                    </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="qustnImage_List ?.length == 0" style="margin-left: 42%;">
+                    <h3>Sorry data not found!.. </h3>
+                </div>
+            </div>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<!-- sub question pop up -->
+<div class="modal fade" id="sub_questionmodel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="staticBackdropLabel">Files</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> 
+          <span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="table-responsive">
+                <table class="table table_text table-bordered">
+                    <thead class="table_header" >
+                        <tr>
+                            <th>S.No</th>
+                            <th>File Name</th>
+                            <th>Download File</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let file of subqustnImage_list;index as i">
+                            <td>{{ i+1 }}</td>
+                            <td>{{ file?.file_name}}</td>
+                            <td>
+                                <span class="material-icons" style="cursor: pointer;" (click)="qustn_fileDownloadApp(file.id,file.file_name )">
+                                   download
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="subqustnImage_list ?.length == 0" style="margin-left: 42%;">
+                    <h3>Sorry data not found!.. </h3>
+                </div>
+            </div>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+ 

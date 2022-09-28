@@ -1,0 +1,119 @@
+<h2>Project Summary</h2>
+
+<div class="col-md-12">
+    <form [formGroup]="projectSearchForm" (ngSubmit)="projectSearch()">
+        <div class="row">
+            <div class="col-md-2">
+                <mat-form-field>
+                    <mat-label>Title/Code</mat-label>
+                    <input matInput placeholder="Title/Code" formControlName="title" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let status of statusList" [value]="status.id">
+                            {{status.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <button mat-fab style="margin-left: 20px;background-color: white;" aria-label="Search">
+                <mat-icon>search</mat-icon>
+            </button>
+            <button mat-fab type="submit" (click)="resetProject()"
+                style="border-radius:40px;margin-left: 20px;background-color: white;color: black;">Clear</button>
+        </div>
+
+
+    </form>
+
+</div>
+
+<!-- <div> -->
+<!-- <button mat-fab style="margin-left: 20px;background-color: #EDF8FA;" (click)="portalCreation()"  aria-label="portal">
+                            <mat-icon matTooltip="Add Portal">add</mat-icon>
+    </button> -->
+<!-- </div> -->
+<br>
+<!-- <div class="table-responsive"> -->
+
+
+
+
+<mat-grid-list cols="3" rowHeight="120px"  gutterSize="25px" style="width:55%;margin-left: 20%;" >
+    <mat-grid-tile
+    *ngFor="let list of projectSummaryList; index as i"
+        [colspan]="3"
+        [rowspan]="1"
+         style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);">
+        
+            <div class="row summary-view">
+                <div class="col">
+                    <div class="profiledata">
+                        <h2 class="titletext" (click)="projectView(list)">({{list.code}}){{list.title}}</h2>
+
+                        <p class="rotatecontent" [ngStyle]="{'background-color':list?.is_applied === true ? '#007462' : ' ' }">{{list.key}}</p>
+                        <div>
+                            <p class="heading">Submission End Date:&nbsp;&nbsp;{{list.submission_end_date | date:
+                                'dd-MMM-yyyy'}}</p>
+                        </div>
+                        <div>
+                            <p class="heading">Description:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ (list.description.length>90)?
+                                (list.description | slice:0:90)+'..':(list.description) }}
+                            </p>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+       
+    </mat-grid-tile>
+  </mat-grid-list>
+<div *ngIf="projectSummaryList?.length == 0" style="margin-left: 42%;">
+    <h3>Sorry data not found!.. </h3>
+</div>
+<div class="row" *ngIf="isprojectpage">
+    <div class="col-sm-12" style="font-size: small;text-align: right; margin-bottom: 50px;">
+        <button mat-icon-button [disabled]="has_projectprevious === false" color="primary"
+            (click)="previousClickProject()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        {{projectpresentpage}}
+        <button mat-icon-button [disabled]="has_projectnext === false" color="primary" (click)="nextClickProject()">
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
+    </div>
+</div>
+<!-- </div> -->
+
+
+<!-- 
+<div class="row" style="margin-left: 200px;width: 70%;">
+    <div *ngFor="let list of projectSummaryList; index as i" style="padding-bottom: 25px;">
+        <div class="card paddingspace">
+            <div class="row summary-view">
+                <div class="col">
+                    <div class="profiledata">
+                        <h2 class="titletext" (click)="projectView(list)">({{list.code}}){{list.title}}</h2>
+                        <div>
+                            <p class="heading">Submission End Date:&nbsp;&nbsp;{{list.submission_end_date | date:
+                                'dd-MMM-yyyy'}}</p>
+                        </div>
+                        <div>
+                            <p class="heading">Description:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ (list.description.length>90)?
+                                (list.description | slice:0:90)+'..':(list.description) }}
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div> -->

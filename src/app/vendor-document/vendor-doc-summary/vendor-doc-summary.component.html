@@ -1,0 +1,58 @@
+<!-- <p>vendor-doc-summary works!</p> -->
+<h2>Vendor Document Summary</h2>
+<div class="docaction">
+    <button mat-fab style="margin-left: 20px;background-color: burlywood;" (click)="addVendorDocument()"  aria-label="Vendor Maker">
+                            <mat-icon matTooltip="Add Document">add</mat-icon>
+    </button>
+</div>
+<br>
+<div class="table-responsive">
+    <table class="table table_text table-bordered">
+        <thead class="table_header" >
+    <!-- <table class="table table-bordered" fixed-header>
+        <thead class="table_header"> -->
+            <tr>
+                <th>Sl.No</th>
+                <th>DocGroup Name</th>
+                <th>Period</th>
+                <th>Remarks</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let document of vendorDocsummaryList; index as i">
+                <!-- <td> {{(paymentpresentpage - 1)*pagesizepayment +i+1 }} </td> -->
+                <td>{{i+1}}</td>
+                <td>{{ document.docgroup_id.name }}</td>
+                <td>{{ document.period}}</td>
+                <td>{{ document.remarks}}</td>
+                <td>
+                    <button mat-icon-button matTooltip="Edit"
+                        class="iconbutton" (click)="documentEdit(document)"color="primary">
+                        <mat-icon style="color:black;" aria-label="Edit">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Delete"
+                    class="iconbutton" (click)="documentDelete(document)"color="primary">
+                    <mat-icon style="color:black;" aria-label="Delete">delete</mat-icon>
+                </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="vendorDocsummaryList ?.length == 0" style="margin-left: 42%;">
+        <h3>Sorry data not found!.. </h3>
+    </div>
+    <!-- <div class="row" *ngIf="ispaymentpage">
+        <div class="col-sm-12" style="font-size: small;text-align: right; margin-bottom: 50px;">
+            <button mat-icon-button [disabled]="has_paymentprevious === false" color="primary"
+                (click)="previousClickPayment()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            {{paymentpresentpage}}
+            <button mat-icon-button [disabled]="has_paymentnext === false" color="primary"
+                (click)="nextClickPayment()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </div> -->
+</div>

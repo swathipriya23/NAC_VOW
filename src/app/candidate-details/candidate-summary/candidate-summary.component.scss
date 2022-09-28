@@ -1,0 +1,44 @@
+.paddingspace{
+  padding: 10px;
+  margin: 3px;
+}
+
+.menumore{
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+.roundimage{
+  border: 3px solid #007462;
+  margin: 0px auto;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.userimageprofile{
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+
+}
+
+.title {
+  color: red;
+  font-size: 18px;
+}
+
+.profiledata{
+  text-align: center;
+}
+
+.mobilenotitle{
+  font-size: 18px;
+}
+.bookmarkicon {
+  align-self: flex-end;
+}

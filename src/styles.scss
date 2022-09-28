@@ -1,0 +1,114 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+
+body {
+    margin: 0;
+    // font-family: 'Montserrat', sans-serif;
+    font-family: 'Raleway', sans-serif;
+  }
+  
+  .buttonStyle {
+    border-radius: 40px;
+    max-width: 100px;
+    min-width: 300px;
+    background-color:#335c81; 
+    color: white;
+    // font-family: 'Montserrat', sans-serif;
+    font-family: 'Raleway', sans-serif;
+    cursor: pointer;
+    border: none;
+  }
+  
+
+  .cursorpointer{
+    cursor: pointer;
+  }
+
+  ::ng-deep .custom-style{
+    background-color:#7c69ef;
+    color:white;
+  }
+
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: #335c81;
+ }
+
+
+ .space{
+   bottom: 100px;
+ }
+
+
+#summary{
+  padding: 10px;
+}  
+
+ #summary th{
+   background-color: #2e458976;
+ }
+
+ .table_header{
+  border-bottom: inset;
+  border-top: inset;
+  background-color: #f6f6f6;
+}
+
+.table_text{
+  text-align: left;
+}
+
+//  .table_header {
+//   background-color:#007462 ;
+//   color: #ffffff;
+//   border-bottom: groove;
+// }
+// .table_border{
+//   border:1px solid #ddd;
+// }
+// .table {
+//   text-align: center;
+// }
+
+
+
+
+// .table_header {
+//   background-color:#f6f6f6;
+//   color: black;
+//   font-size: medium;
+// }
+// table,th,td{
+//   text-align: left;
+// }
+
+// #commonstyle{
+//   border: lightgray;
+//     vertical-align: middle;
+//     }
+
+//     tr:nth-child(even) {background: #EDF8FA}
+//     tr:nth-child(odd) {background: #FFF}
+
+
+    .submitbtn {
+      background-color: #007462;
+      color: #ffffff;
+  
+  }
+
+  .cancelbtn {
+    margin-left: 10px;
+    color: #ffffff;
+    background-color: #6c757d;
+  }

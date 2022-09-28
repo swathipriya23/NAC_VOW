@@ -1,0 +1,468 @@
+<div class="container-fluid"  *ngIf="vowService.isAuthenticated == false">
+
+  <div class="row boxrow">
+    <div  class="col-sm-0 col-md-0 col-lg-8 leftpart">
+      <img src="../../assets/NorthernArc.png" alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+      <!-- <div class="borderdesign"></div>
+      <div class="circle">
+        <div class="profile">
+          <span class="material-icons">
+            person
+          </span>
+        </div>
+      </div> -->
+      
+
+    </div>
+    <!-- <div  *ngIf="isSignUpPage == true" class="col-sm-0 col-md-0 col-lg-8 leftpart signinleft">
+          <img src="./assets/draw2.webp" alt="Login image">
+    </div> -->
+    <div class="col-sm-12 col-md-12 col-lg-4 rightpart">
+      <div class="mobileview svgpart">
+      <svg viewBox="0 0 500 500"
+      preserveAspectRatio="xMinYMin meet">
+       
+      <path d="M0, 100 C150, 200 350,
+          0 500, 100 L500, 00 L0, 0 Z"
+          style="stroke:none; fill:#3866f276;">
+      </path>
+      <path d="M0, 80 C300, 0 400,
+                300 500, 50 L500, 00 L0, 0 Z"
+                style="stroke: none;
+                fill:#00746385;;">
+      </path>
+  </svg>
+  </div>
+      <div *ngIf="isUserPage == true" class="col-sm-12 col-md-12 col-lg-11 loginform">
+        <img src="../../assets/Northern Arc - Logo 1.jpg" alt="NAC" class="logo">
+        <!-- <h2 class="headerNameLogin">Login</h2> -->
+        <form [formGroup]="VowloginForm" style="margin-top: 5%;">
+          <!-- <div class="form-group">
+            <label for="UserCode">User Code</label>
+            <input type="text" class="form-control" id="UserCode" aria-describedby="CodeHelp" autocomplete="off"
+              placeholder="Enter Code" formControlName="user">
+            <small id="CodeHelp" class="smallpixel">We'll never share your Code with anyone else.</small>
+          </div> -->
+          <mat-form-field>
+            <mat-label>Entity</mat-label>
+            <mat-select formControlName="entity_id">
+                <mat-option *ngFor="let entity of EntityList" (click)="select_entityId(entity)" [value]="entity.id">
+                    {{entity.text}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+          <mat-form-field>
+            <mat-label>UserCode/Email</mat-label>
+            <input matInput placeholder="Username/Email" formControlName="user"
+                autocomplete="off">
+         </mat-form-field>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.user">
+              <div class="error-message"
+                *ngIf="VowloginForm.get('user').hasError(error.type) && (VowloginForm.get('user').dirty || VowloginForm.get('user').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+          <!-- <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="off"
+              placeholder="Password" formControlName="password">
+          </div> -->
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <!-- <input matInput placeholder="Password" formControlName="password"
+                autocomplete="off"> -->
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+         </mat-form-field>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.password">
+              <div class="error-message"
+                *ngIf="VowloginForm.get('password').hasError(error.type) && (VowloginForm.get('password').dirty || VowloginForm.get('password').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <label class="cursorpointer"><small> Forgot Password? </small></label>
+          </div>
+          <div class="row space">
+            <div class="col">
+              <button mat-flat-button color="primary" class="loginsubmit" [disabled]="vowService.process" (click)="VowloginSubmit()">
+                <mat-spinner color="warn" [diameter]="25" *ngIf="vowService.process"></mat-spinner>
+                <span *ngIf="!vowService.process">Login</span>
+              </button>
+              <p class="signupname">Don't have an account? <a
+                class="primary tagname" (click)="registerclick()">Register</a></p>
+              <!-- <p class="signupname" data-bs-toggle="modal" data-bs-target="#portalpopup">Don't have an Port? <a
+                  class="primary tagname" (click)="portclick()">Create Port</a></p> -->
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+
+
+      <div *ngIf="isSignUpPage == true" class="col-sm-12 col-md-12 col-lg-11 signinform">
+        <h2 class="headerNameLogin">Sign Up</h2>
+        <form [formGroup]="signupForm">
+          <!-- <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" class="form-control" aria-describedby="CodeHelp" autocomplete="off"
+              placeholder="Your Name" formControlName="user">
+          </div> -->
+          <mat-form-field>
+            <mat-label>Entity</mat-label>
+            <mat-select formControlName="entity_id">
+                <mat-option *ngFor="let entity of EntityList" [value]="entity.id">
+                    {{entity.text}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+          <mat-form-field>
+            <mat-label>User Name</mat-label>
+            <input matInput placeholder="User Name" formControlName="name"
+                autocomplete="off">
+         </mat-form-field>
+          <mat-form-field>
+            <mat-label>Company Name</mat-label>
+            <input matInput placeholder="Company Name" formControlName="company_name"
+                autocomplete="off">
+         </mat-form-field>
+         <mat-form-field>
+          <mat-label>PAN No</mat-label>
+          <!-- <input matInput placeholder="PAN No" formControlName="pan_no"
+              autocomplete="off"> -->
+              <input matInput placeholder="PAN No" formControlName="pan_no" [ngModel]="inputPanValue" 
+                                (ngModelChange)="inputPanValue = $event.toUpperCase()" 
+                               (keydown.space)="$event.preventDefault();" maxlength="10" autocomplete="off" >
+       </mat-form-field>
+       <mat-form-field>
+       <mat-label>GST No</mat-label>
+          <!-- <input matInput placeholder="GST No" formControlName="gst_no"
+              autocomplete="off"> -->
+              <input matInput placeholder="GST No" formControlName="gst_no" [ngModel]="inputGstValue" 
+                                (ngModelChange)="inputGstValue = $event.toUpperCase()" 
+                               (keydown.space)="$event.preventDefault();" maxlength="15" autocomplete="off" >
+       </mat-form-field>
+      <mat-form-field>
+          <mat-label>Email Address</mat-label>
+          <input matInput placeholder="Email Address" formControlName="email"
+              autocomplete="off">
+              <mat-error *ngIf="signupForm.controls['email'].hasError('email')">
+                Email is not Valid!
+            </mat-error>
+       </mat-form-field>
+      <mat-form-field>
+      <mat-label>Phone Number</mat-label>
+      <input matInput placeholder="Phone Number" maxlength="10" appVowvalidatephonenumber formControlName="phone_no"
+          autocomplete="off">
+          <mat-error *ngIf="signupForm.controls.phone_no.errors?.phonenumbervalidation">
+            Invalid Phone Number
+         </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+</button>
+     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Confirm Password</mat-label>
+      <input matInput [type]="hided ? 'password' : 'text'" formControlName="repassword">
+<button mat-icon-button matSuffix (click)="hided = !hided" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+<mat-icon>{{hided ? 'visibility_off' : 'visibility'}}</mat-icon>
+</button>
+   </mat-form-field>
+     
+          <!-- <div class="form-group">
+            <label for="UserCode">User Code</label>
+            <input type="text" class="form-control" id="UserCode" aria-describedby="CodeHelp" autocomplete="off"
+              placeholder="Enter Code" formControlName="user">
+            <small id="CodeHelp" class="smallpixel">We'll never share your Code with anyone else.</small>
+          </div> -->
+          <!-- <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.user">
+              <div class="error-message"
+                *ngIf="signupForm.get('user').hasError(error.type) && (signupForm.get('user').dirty || signupForm.get('user').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div> -->
+          <!-- <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="off"
+              placeholder="Password" formControlName="password">
+          </div> -->
+          <!-- <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" formControlName="password"
+                autocomplete="off">
+         </mat-form-field> -->
+          <!-- <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.password">
+              <div class="error-message"
+                *ngIf="signupForm.get('password').hasError(error.type) && (signupForm.get('password').dirty || signupForm.get('password').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div> -->
+          <!-- <div class="form-group">
+            <label class="cursorpointer"><small> Forgot Password? </small></label>
+          </div> -->
+          <div class="row space">
+            <div class="col">
+              <!-- <button mat-flat-button color="primary" class="loginsubmit" [disabled]="vowService.process" (click)="signINSubmit()">
+                <mat-spinner color="warn" [diameter]="25" *ngIf="vowService.process"></mat-spinner>
+                <span *ngIf="!vowService.process">SIGN IN</span>
+              </button> -->
+
+              <button mat-flat-button class="signinbtn" [disabled]="vowService.process" (click)="signINSubmit()">
+                <mat-spinner color="warn" [diameter]="25" *ngIf="vowService.process"></mat-spinner>
+                <span *ngIf="!vowService.process">SIGN IN</span>
+              </button>
+              <!-- <button mat-raised-button class="signinbtn" (click)="signINSubmit()">SIGN IN</button> -->
+              <button mat-flat-button class="cancelbtn" (click)="onCancelSIgnIn()" >Back</button>
+              <!-- <p class="signupname">Don't have an account? <a
+                class="primary tagname" (click)="registerclick()">Register</a></p> -->
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+
+
+      
+
+
+
+
+
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="portalpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Portal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <form [formGroup]="portalForm" (ngSubmit)="branchCreateForm()" autocomplete="off">
+          <div class="row">
+            <div class="row">
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Name</mat-label>
+                  <input matInput placeholder="Name" formControlName="name"
+                      autocomplete="off">
+               </mat-form-field>
+  
+  
+              </div>
+             <div class="col">
+              <mat-form-field>
+                <mat-label>PAN Number</mat-label>
+                <input matInput placeholder="PAN Number" formControlName="pan_no"
+                    autocomplete="off">
+             </mat-form-field>
+              
+             </div>
+           </div>
+           <div class="row">
+            <div class="col">
+             
+            <mat-form-field>
+             <mat-label>GST Number</mat-label>
+             <input matInput placeholder="Gst Number" formControlName="gst_no"
+                 autocomplete="off">
+          </mat-form-field>
+ 
+ 
+            </div>
+            <div class="col">
+           <mat-form-field>
+             <mat-label>Mobile No</mat-label>
+             <input matInput placeholder="Mobile No" formControlName="phone_no"
+                 autocomplete="off">
+          </mat-form-field>
+            </div>
+          </div>
+
+
+
+          <div [formGroup]="contactform">
+            <h2>Contact</h2>
+            <div class="row">
+              <div class="col">
+                <mat-form-field>
+                <mat-label>GST Number</mat-label>
+                <input matInput placeholder="Gst Number" formControlName="name"
+                    autocomplete="off">
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>GST Number</mat-label>
+                  <input matInput placeholder="Gst Number" formControlName="email"
+                      autocomplete="off">
+               </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>GST Number</mat-label>
+                  <input matInput placeholder="Gst Number" formControlName="designation"
+                      autocomplete="off">
+               </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>GST Number</mat-label>
+                  <input matInput placeholder="Gst Number" formControlName="mobile_1"
+                      autocomplete="off">
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>GST Number</mat-label>
+                  <input matInput placeholder="Gst Number" formControlName="mobile_2"
+                      autocomplete="off">
+                </mat-form-field>
+              </div>
+            </div>
+           </div>
+
+           <div [formGroup]="addressform">
+            <h2>Address</h2>
+            <div class="row">
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Line 1 </mat-label>
+                  <input matInput placeholder="Line 1" formControlName="line1" autocomplete="off">
+              </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Line 2</mat-label>
+                  <input matInput placeholder="Line 2" formControlName="line2" autocomplete="off">
+              </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Line 3</mat-label>
+                  <input matInput placeholder="Line 3" formControlName="line3" autocomplete="off">
+              </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field (click)="pincodename()">
+                  <mat-label>Pin Code</mat-label>
+                  <input #pinCodeInput appVowvalidatestring placeholder="Select PinCode" 
+                      maxlength="6" matInput
+                      formControlName="pincode_id" autocomplete="off" [matAutocomplete]="pintype">
+                  <mat-autocomplete #pintype="matAutocomplete" [displayWith]="displayFnpin">
+                      <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                      <ng-container *ngIf="!isLoading">
+                          <mat-option *ngFor="let pin of pinCodeList" [value]="pin">
+                              {{pin.no}}
+                          </mat-option>
+                      </ng-container>
+                  </mat-autocomplete>
+                 
+              </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field (click)="cityname()">
+                  <mat-label>City</mat-label>
+                  <input #cityInput matInput formControlName="city_id" autocomplete="off"
+                      placeholder=" Select City" [matAutocomplete]="autocit">
+                  <mat-autocomplete #autocit="matAutocomplete" [displayWith]="displaycit">
+                      <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                      <ng-container *ngIf="!isLoading">
+                          <mat-option *ngFor="let city of cityList" [value]="city">{{city.name}}
+                          </mat-option>
+                      </ng-container>
+                  </mat-autocomplete>
+              </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field (click)="districtname()">
+                  <mat-label>District</mat-label>
+                  <input #districtInput matInput formControlName="district_id"
+                      placeholder=" Select District" autocomplete="off"
+                      [matAutocomplete]="autodis">
+                  <mat-autocomplete #autodis="matAutocomplete" [displayWith]="displaydis">
+                      <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                      <ng-container *ngIf="!isLoading">
+                          <mat-option *ngFor="let district of districtList" [value]="district">
+                              {{district.name}}
+                          </mat-option>
+                      </ng-container>
+                  </mat-autocomplete>
+              </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field (click)="statename()">
+                  <mat-label>State</mat-label>
+                  <input #stateInput placeholder="Select State" matInput
+                      formControlName="state_id" autocomplete="off" [matAutocomplete]="statetype">
+                  <mat-autocomplete #statetype="matAutocomplete" [displayWith]="displayFnstate">
+                      <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                      <ng-container *ngIf="!isLoading">
+                          <mat-option *ngFor="let state of stateList" [value]="state">
+                              {{state.name}}
+                          </mat-option>
+                      </ng-container>
+                  </mat-autocomplete>
+              </mat-form-field>
+              </div>
+            </div>
+           </div>
+
+
+          </div>
+          
+          
+            
+      
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

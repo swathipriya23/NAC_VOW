@@ -1,0 +1,136 @@
+.container-fluid {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: rgb(239, 238, 238);
+  }
+  
+  .leftpart {
+    height: 100vh;
+    background-color: #00746385;
+  }
+  
+  .rightpart {
+    height: 100vh;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    background-color: #ffffff;
+  
+  }
+  
+  .borderdesign{
+    width:40%;
+    height:60%;
+    position: absolute;
+    background:#3866f276;
+    // background:red;
+    border-radius:0 0 100%  0;
+    z-index: 1;
+  }
+  
+  .svgpart{
+    margin: 0;
+    padding: 0;
+    height: 10px;
+  }
+  
+  
+  
+  
+  .circle {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    border-radius: 200px;
+    transform: translateX(-50%) translateY(-50%);
+    border: 2px solid rgba(149, 152, 149, 0.741);
+    background-color: #fbffc7;
+    z-index: 3;
+  }
+  
+  .profile{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 200px;
+    height: 150px;
+    border: 7px solid rgba(81, 79, 79, 0.446);
+    z-index: 3;
+  
+  }
+  
+  .profile .material-icons{
+    font-size: 200px;
+    position:relative;
+    right: 8px;
+    z-index: 3;
+  
+  }
+  
+  .loginform{
+    position: relative;
+    top: 100px;
+  }
+  
+  .mobileview{
+    display: none;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  input.ng-touched.ng-invalid {
+    border: 1px solid red;
+  }
+  
+  .form-group{
+    margin-bottom: 1rem;
+  }
+  
+  
+  @media screen and (max-width: 992px) {
+    .leftpart{
+      display: none;
+    }
+    .rightpart{
+      background: #e2e1e0;
+    }
+    .loginform{
+      position: relative;
+      left: 10%;
+      // border: 1px solid green;
+      width: 80%;
+      padding: 40px;
+      background: #ffffff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+    .mobileview{
+      display: block;
+    }
+  
+  }
+  
+  @media screen and (max-width: 442px) {
+    .leftpart{
+      display: none;
+    }
+    .rightpart{
+      background: #e2e1e0;
+    }
+    .loginform{
+      position: relative;
+      left: 10%;
+      // border: 1px solid green;
+      width: 80%;
+      padding: 40px;
+      background: #ffffff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+    .mobileview{
+      display: block;
+    }
+  
+  }
+  

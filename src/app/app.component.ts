@@ -155,7 +155,8 @@ export class AppComponent implements OnInit {
   logout() {
     this.vowService.isAuthenticated = false
     this.headerName = '';
-    this.currentlyClickedCardIndex = 0
+    this.currentlyClickedCardIndex = 0;
+    this.iscondition = false;
     this.vowService.logout()
     this.router.navigateByUrl("login")
     localStorage.clear()

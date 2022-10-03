@@ -9,8 +9,8 @@ html, body { height: 100%; }
 
 body {
     margin: 0;
-    // font-family: 'Montserrat', sans-serif;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Montserrat';
+    // font-family: 'Raleway', sans-serif;
   }
   
   .buttonStyle {
@@ -112,3 +112,33 @@ body {
     color: #ffffff;
     background-color: #6c757d;
   }
+
+  .mat-form-field,div,.mat-option,.mat-fab,.mat-button,button,.mat-menu-item,p {
+    font-family: "Montserrat";
+  }
+
+  .footer{
+    position: fixed;
+    bottom: 0px;
+    width: 1440px;
+    box-shadow:  0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    background-color: #f6f6f6;
+    /*background-color: rgb(169, 247, 247)*/
+}
+.footer_text{
+    text-align: center;
+    font-size: 12px;
+    /*color: rgb(110, 110, 110); */
+}
+#secondarybtn{
+  border-radius: 7px;margin-left: 10px;
+    border-color: black;
+    background-color: white;
+}
+
+#primarybtn{
+  border-radius: 10px;
+  margin-left: 10px;
+    border-color: #F5C68B;
+    background-color: #F5C68B;
+}

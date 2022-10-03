@@ -96,5 +96,30 @@ export class VowService {
     return this.http.get<any>(vowUrl + 'usrserv/portal_permissions/' + portal_id, {'headers': headers})
   }
 
+  public getchange_pwd(changepwd): Observable<any> {
+    // this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token;
+    // let idValue = {
+    //   "id": id
+    // }
+    // let branchEditJson = Object.assign({}, idValue, branchJson)
+    const headers = { 'Authorization': 'Token ' + environment.apiToken }
+    return this.http.post<any>(vowUrl + "usrserv/change_pass",changepwd,  { 'headers': headers })
+  }
+  public forgot_pwd(forgotpwd): Observable<any> {
+    // this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token;
+    // let idValue = {
+    //   "id": id
+    // }
+    // let branchEditJson = Object.assign({}, idValue, branchJson)
+    const headers = { 'Authorization': 'Token ' + environment.apiToken }
+    return this.http.post<any>(vowUrl + "usrserv/forgot_user_pass",forgotpwd)
+  }
+
   
 }

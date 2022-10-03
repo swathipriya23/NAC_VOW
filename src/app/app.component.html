@@ -25,17 +25,23 @@
 
         <div id="mySidenav" class="sidenav" *ngIf="vowService.isAuthenticated">
             <div style="background-color:53A95A;cursor: pointer;color: #fff;"> 
-              <img id="LogoTag1" src="../assets/Nimbus-Logo-1.png" width="50px">
-              <span style="font-size: 17px;" *ngIf="iscondition === false"> Northern ARC </span>
+              <!-- <img id="LogoTag1" src="../assets/Nimbus-Logo-1.png" width="50px"> -->
+              <!-- <img src="./../assets/images/Northern Arc - Logo 1.jpg" width="70px"> -->
+              <img src="./../assets/Northern Arc - Logo 1.jpg" class="imglogo">
+              <span style="font-size: 17px;" *ngIf="iscondition === false"> Vow </span>
             </div>
             <div class="scrollclass" style="margin-bottom:100px;font-size: 17px;">
               <div *ngFor="let modrow of sidemenuList; let i = index" [ngClass]="{'parent_selected':checkIfCardIsClicked(i)}">
-                <div title="{{modrow.name}} " class="module_text" (click)="SelectedModule(modrow,i)"><i
-                    class={{modrow.logo}}></i>
+                <div title="{{modrow.name}} " class="module_text" (click)="SelectedModule(modrow,i)">
+                  <!-- <i
+                    class={{modrow.logo}}></i> -->
+                    <span class="material-icons" style="font-size: 17px;">
+                      lan
+                    </span>
                   <span class="sideNav-title" *ngIf="iscondition === false">{{modrow.name}}</span>
                 </div>
               </div>
-            </div>
+            </div>         
           </div>
 
           
@@ -68,7 +74,7 @@
 
 
 
-    <div class="rightsidemenu" id="rightsidemenu" *ngIf="vowService.isAuthenticated">
+    <!-- <div class="rightsidemenu" id="rightsidemenu" *ngIf="vowService.isAuthenticated">
 
         <button class=" closebuttononmenu" title="close" color="light" (click)="closeNavRight()" mat-mini-fab
             aria-label="Close">
@@ -95,7 +101,7 @@
 
         </div>
 
-    </div>
+    </div> -->
 
 
     <div *ngIf="vowService.isAuthenticated == false">
@@ -120,11 +126,48 @@
 
     <div class="maincontent" id="maincontent" *ngIf="vowService.isAuthenticated">
         <nav class="navbar navbar-light  justify-content-between" style="box-shadow: inset 0px 0rem 1rem 0px rgb(0 0 0 / 10%);height: 40px;">
-            <span style="font-size:30px;cursor:pointer" (click)="openNavMain()">&#9776; </span>
+            <!-- <span style="font-size:30px;cursor:pointer" (click)="openNavMain()">&#9776; </span> -->
+          <span style="font-size:18px;cursor:pointer"
+          *ngIf="headerName !='vendorView' && headerName!='branchView'"
+          (click)="openNavMain()">&#9776;
+          {{MyModuleName}}
+        </span>
+
+        <!-- (click)="backpremise()" -->
+        <!-- <span *ngIf="headerName =='REMS' ">
+          <i class="fa fa-arrow-left" ></i>
+          {{premiseCode_Name}}
+        </span> -->
+        <!-- (click)="backVendor()" -->
+        <span *ngIf="headerName==='vendorView' ">
+          <!-- <i class=" fa fa-arrow-left" ></i> -->
+          {{vendorCode_Name}}
+        </span>
+        <!-- (click)="backBranchView()" -->
+        <span *ngIf="headerName==='branchView' ">
+          <!-- <i class="fa fa-arrow-left" ></i> -->
+          <span class="material-icons">
+            arrow_back
+          </span>
+          <a routerLink="/atma/vendorView">
+            {{vendorCode_Name}}
+          </a>
+          / {{branchViewName}}
+        </span>
+
+
+
+
+
         <div style="margin-right: 1%;">
             <span id="UserNameContainer" style="margin-right: 10px;font-size: 18px;">{{userName}}</span>
-            <img src="https://cdn-icons-png.flaticon.com/512/152/152360.png" 
-              style="width: 25px;cursor: pointer;">&nbsp;
+            <span id="UserNameContainer" style="margin-right: 10px;font-size: 18px;">({{entityName}})</span>
+            <!-- <img src="https://cdn-icons-png.flaticon.com/512/152/152360.png" 
+              style="width: 25px;cursor: pointer;">&nbsp; -->
+              <span  data-toggle="modal" matTooltip="Change Password" 
+              data-target="#changepopup" (click) ="resetChangepwd()"  class="material-icons">
+              lock
+              </span>&nbsp;
               <span class="material-icons" (click)="logout()" style="cursor: pointer;">
                 logout
                 </span>
@@ -147,6 +190,17 @@
                 <router-outlet></router-outlet>
             </mat-card> 
         </div>
+        <div class="row">
+          <div>
+            <div class="footer" >
+              <span>
+                <span  style="margin-left: 28rem;font-size: 15px;">
+                  &#169;2022 -Vsolv Engineering India Pvt Ltd.
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
     </div>
 
 
@@ -167,6 +221,67 @@
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
           </div>
     </div> -->
+
+
+    
+    <!-- change password -->
+    <div class="modal fade" id="changepopup" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title">Change Password</p>
+              <button type="button" #changepassword class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form style="width: 10rem;font-family: Montserrat;margin-left: 10%;" [formGroup]="changepwd">
+                
+                    <mat-form-field appearance="outline" style="width: 250px;">
+                      <mat-label>Old Password</mat-label>
+                      <input matInput [type]="hideold ? 'password' : 'text'" formControlName="old_password">
+              <button mat-icon-button matSuffix (click)="hideold = !hideold" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hideold ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+                   </mat-form-field>
+              
+                    
+                    <mat-form-field appearance="outline" style="width: 250px;">
+                      <mat-label>New Password</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" formControlName="new_password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+                   </mat-form-field>
+              
+      
+      
+      
+                  <mat-form-field appearance="outline" style="width: 250px;">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput [type]="hided ? 'password' : 'text'" formControlName="re_password">
+              <button mat-icon-button matSuffix (click)="hided = !hided" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hided ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+                 </mat-form-field>
+  
+                
+      
+              </form>
+            <div class="modal-footer">
+              <span class="col-md-12 text-center">
+                <button type="submit" style="margin-left: 10px;" class="btn btn-light" id="primarybtn"
+                  (click)="change_pwd()">Submit</button>
+                <button type="button" data-dismiss="modal" class="btn btn-light" id="secondarybtn"
+                  style="margin-left: 10px;">Close</button>
+              </span>
+            </div> 
+          
+              
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 

@@ -13,6 +13,20 @@ export class VowSharedService {
   public loginResult = new BehaviorSubject<string>('');
   public branchDetailScreen_loginResult = new BehaviorSubject<string>('');
   public projectcreen_loginResult = new BehaviorSubject<string>('');
+
+
+  isLoggedin = false;
+  isSideNav = false;
+  Loginname = '';
+  entity_Name = '';
+  portal_id = '';
+  portal_code = '';
+  Memofrom='';
+  loginUserId='';
+  loginEmpId='';
+  MyModuleName='';
+  transactionList= [];
+  masterList= [];
   
 
 

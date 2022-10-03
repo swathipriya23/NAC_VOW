@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VowService } from '../service/vow.service';
@@ -12,6 +12,8 @@ import { district}  from 'src/app/service/vow'
 import { state}  from 'src/app/service/vow'
 import { MasterService} from 'src/app/service/master.service'
 import { debounceTime, distinctUntilChanged, tap, filter, switchMap, finalize, takeUntil, map } from 'rxjs/operators';
+import { NgxSpinnerService } from "ngx-spinner";
+import { ErrorHandlingService } from '../service/error-handling.service';
 
 @Component({
   selector: 'app-login',
@@ -37,11 +39,14 @@ export class LoginComponent implements OnInit {
   returnUrl: string
   hide = true;
   hided = true;
+  forgotpwd: FormGroup;
+  @ViewChild('closeforgotpwd') closeforgotpwd;
 
 
 
   constructor(public vowService: VowService, private router: Router, private notification: NotificationService,private masterservice:MasterService,
-    private formBuilder: FormBuilder, private route: ActivatedRoute, private vowShareService: VowSharedService,private toastr: ToastrService
+    private formBuilder: FormBuilder, private route: ActivatedRoute, private vowShareService: VowSharedService,private toastr: ToastrService,private SpinnerService: NgxSpinnerService,
+    private errorHandler: ErrorHandlingService
     ) { }
 
   ngOnInit() {
@@ -108,6 +113,10 @@ export class LoginComponent implements OnInit {
     }),
 
   })
+
+  this.forgotpwd = this.formBuilder.group({
+    user_data: [''],
+  })
   
 
     
@@ -153,11 +162,18 @@ export class LoginComponent implements OnInit {
         console.log("after login response ", this.vowService.isAuthenticated)
         this.vowService.isAuthenticated = true
         this.vowService.process = false
-        localStorage.setItem("UserData", JSON.stringify(res))
+        localStorage.setItem("sessionData", JSON.stringify(res))
         this.envData.apiToken = res.token 
         this.router.navigate(['/welcome']);
         this.vowShareService.vendorID.next(res.vendor_id);
         this.vowShareService.loginResult.next(res);
+        this.vowShareService.Loginname = res.name;
+        this.vowShareService.entity_Name = res.entity_name;
+        this.vowShareService.portal_id = res.portal_id;
+        this.vowShareService.portal_code = res.portal_code;
+        // this.sharedService.isLoggedin = true;
+        this.vowShareService.loginUserId = res.user_id;
+        this.vowShareService.loginEmpId = res.employee_id;
         console.log("after assign login response ", this.vowService.isAuthenticated)
       } else {
         this.notification.showError(res.description)
@@ -420,6 +436,43 @@ export class LoginComponent implements OnInit {
             // console.log("state", datas)
     
           })
+      }
+
+
+
+      resetforgotpwd(){
+        this.forgotpwd.patchValue({
+          "user_data": ""
+        })
+      }
+
+
+      // forgot password
+      clickforgotpwd(){
+        this.SpinnerService.show();
+        if (this.forgotpwd.value.user_data === "") {
+          this.toastr.error('', 'Please Enter Usercode/Email', { timeOut: 1500 });
+          this.SpinnerService.hide();
+          return false;
+        }
+        this.vowService.forgot_pwd(this.forgotpwd.value)
+          .subscribe((result) => {
+            console.log(result)
+          if (result.status == "success") {
+            this.closeforgotpwd.nativeElement.click();
+            this.notification.showSuccess("Mail Sent")
+            this.SpinnerService.hide();
+          } else {
+            this.notification.showError(result.description)
+            this.SpinnerService.hide();
+          } 
+          },
+          error => {
+            this.errorHandler.handleError(error);
+            this.SpinnerService.hide();
+          }
+          )
+        
       }
 
 

@@ -20,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
 import { NotificationComponent } from './notification/notification.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProjectSummaryComponent } from './project-details/project-summary/project-summary.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 // import { UserDetailsComponent } from './user-details/user-details.component';
@@ -49,7 +50,7 @@ const appearance: MatFormFieldDefaultOptions = {
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    BrowserModule, SharedModule, CommonModule
+    BrowserModule, SharedModule, CommonModule, NgbModule
   ],
   providers: [DatePipe,{
     provide: HTTP_INTERCEPTORS,

@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'vendordocument', loadChildren: () => import("./vendor-document/vendor-document.module").then(m => m.VendorDocumentModule), canActivate: [CanActivateGuardService]},
   { path: 'branchdetails', loadChildren: () => import("./branch-details/branch--details.module").then(m => m.BranchDetailsModule), canActivate: [CanActivateGuardService]},
   { path: 'projectdetails', loadChildren: () => import("./project-details/project-details.module").then(m => m.ProjectDetailsModule), canActivate: [CanActivateGuardService]},
+  { path: 'atma', loadChildren: () => import("./atma/atma.module").then(m => m.AtmaModule), canActivate: [CanActivateGuardService]},
   { path: '', pathMatch: 'full', redirectTo: 'login' },
 ];
 

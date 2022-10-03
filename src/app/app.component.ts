@@ -3,10 +3,16 @@ import { VowService } from './service/vow.service';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 // import { NgxSpinnerService } from "ngx-spinner";
 import { NotificationService } from './service/notification.service';
+import { ErrorHandlingService } from './service/error-handling.service';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { VowSharedService} from './service/vow-shared.service';
+import { FormGroup,Validators } from '@angular/forms';
+import { FormBuilder,FormGroupDirective } from '@angular/forms';
+import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from 'ngx-toastr';
+import { ShareService } from './atma/share.service'; 
 
 @Component({
   selector: 'app-root',
@@ -24,6 +30,22 @@ export class AppComponent implements OnInit {
   userName:any;
   emailname:any;
   cpmyname:any;
+  entityName:any;
+  changepwd:FormGroup;
+  @ViewChild('changepassword')changepassword;
+  hide=true;
+  hided = true;
+  hideold = true;
+  branchViewName: string;
+  isbranchView: boolean;
+  headerName = '';
+  vendorCode: string;
+  vendorName: string;
+  vendorCode_Name: string;
+  premiseCode_Name: string
+  premiseCode: string;
+  premiseName: string;
+  MyModuleName:any;
   // @HostListener('window:unload', [ '$event' ])
   // unloadHandler(event) {
   //   let confirmation = confirm("Do you want to leave?")
@@ -36,10 +58,28 @@ export class AppComponent implements OnInit {
   // }
 
 
-  constructor(public vowService: VowService, private notification: NotificationService,
-    private router: Router,private vowShareService: VowSharedService) { }
+  constructor(public vowService: VowService, private notification: NotificationService,private formBuilder: FormBuilder,
+    private errorHandler: ErrorHandlingService, private shareservice:ShareService,
+    private router: Router,private vowShareService: VowSharedService,private toastr: ToastrService,private SpinnerService: NgxSpinnerService,) { }
 
   ngOnInit() {
+
+
+    this.changepwd = this.formBuilder.group({
+      old_password: [''],
+      new_password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])],
+      re_password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])],
+      code: ['']
+    });
+
     if(window){
       console.log("window get ", window)
 
@@ -50,14 +90,46 @@ export class AppComponent implements OnInit {
         this.vendor_ID = this.vowShareService.vendorID.value
         this.entity_ID = this.vowShareService.entityID.value
         this.loginResult = this.vowShareService.loginResult.value 
-        this.userName = this.loginResult.name
+        // this.userName = this.loginResult.name
         this.cpmyname = this.loginResult.company_name
         this.emailname = this.loginResult.user_email
+        const localdata: any = localStorage.getItem('sessionData')
+        let data = JSON.parse(localdata);
+        this.userName = data.name
+        this.entityName = data.entity_name
+
+        this.shareservice.vendorViewHeaderName.subscribe(result => {
+          let data: any = result;
+          this.headerName = 'vendorView'
+          this.vendorCode = data.code
+          this.vendorName = data.name
+          this.vendorCode_Name = this.vendorCode + "-" + this.vendorName;
+          if (this.vendorCode_Name) {
+            this.MyModuleName = ""
+          }
+          if (this.vendorCode_Name === 'undefined-undefined') {
+            this.headerName = '';
+          }
+        })
+    
+        this.shareservice.branchView.subscribe(res => {
+          let data: any = res;
+          this.headerName = 'branchView'
+          this.branchViewName = data.code + "-" + data.name;
+          this.isbranchView = this.branchViewName === '' ? false : true;
+          if (this.branchViewName === undefined) {
+            this.headerName = ''
+          }
+          if (this.branchViewName === 'undefined-undefined') {
+            this.headerName = ''
+          }
+    
+        })
         if(this.env.apiToken){
           this.getMenuUrl(this.loginResult.portal_id);
         }
         if (event.id === 2 && event.url === event.urlAfterRedirects) {
-          const localdata: any = localStorage.getItem('UserData')
+          const localdata: any = localStorage.getItem('sessionData')
           let authdata = JSON.parse(localdata);
           let loginSelectedTabToken = authdata.token
           let cmsSelectedTabToken = authdata.vendor_token
@@ -82,6 +154,8 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.vowService.isAuthenticated = false
+    this.headerName = '';
+    this.currentlyClickedCardIndex = 0
     this.vowService.logout()
     this.router.navigateByUrl("login")
     localStorage.clear()
@@ -138,6 +212,8 @@ export class AppComponent implements OnInit {
 
   SelectedModule(module,cardIndex) {
     console.log("selected module ", module)
+    this.headerName = '';
+    this.MyModuleName = module.name;
     this.currentlyClickedCardIndex = cardIndex;
 
     if (module.url === "/candidateinfo") {
@@ -190,6 +266,14 @@ export class AppComponent implements OnInit {
       console.log("module url data", module.name)
       return true;
     }  
+    if (module.url === "/vendor") {
+      // console.log("module url data", module.url)
+      // this.vowShareService.projectscreen_entityID.next(this.entity_ID)
+      // this.vowShareService.projectcreen_loginResult.next(this.loginResult)
+      this.router.navigate(['atma/vendorView']);
+      console.log("module url data", module.url)
+      return true;
+    }
 
   }
 
@@ -230,5 +314,93 @@ export class AppComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe()
   }
+
+  resetChangepwd(){
+    this.changepwd = this.formBuilder.group({
+      old_password: [''],
+      new_password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])],
+      re_password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])],
+      code: ['']
+    });
+    // this.changepwd.patchValue({
+    //   "old_password": "",
+    //   "new_password": "",
+    //   "re_password":"",
+    //   "code":""
+    // })
+    // this.changepwd.reset();
+          //  this.premisenameForm.reset();
+          //  this.formGroupDirective.resetForm();
+  }
+
+
+
+    // change pwd
+    login_code: any;
+    change_pwd(){
+      this.SpinnerService.show();
+      if (this.changepwd.value.old_password === "") {
+        this.toastr.error('', 'Please Enter Old Password', { timeOut: 1500 });
+        this.SpinnerService.hide();
+        return false;
+      }
+      if (this.changepwd.value.new_password === "") {
+        this.toastr.error('', 'Please Enter New Password', { timeOut: 1500 });
+        this.SpinnerService.hide();
+        return false;
+      }
+      if (this.changepwd.value.re_password === "") {
+        this.toastr.error('', 'Please Enter Confirm Password', { timeOut: 1500 });
+        this.SpinnerService.hide();
+        return false;
+      }
+      const sessionData = localStorage.getItem("sessionData")
+      let logindata = JSON.parse(sessionData);
+      this.login_code = logindata.code;
+      this.changepwd.value.code = this.login_code;
+  
+      this.vowService.getchange_pwd(this.changepwd.value)
+        .subscribe((result) => {
+          console.log(result)
+      if (result.status == "success") {
+      this.notification.showSuccess("Password Changed")
+      // this.showModal = false;
+      // this.idleState = '';
+      // this.timedOut = true;
+      // this.idle.stop()
+      // localStorage.removeItem("sessionData");
+      // this.cookieService.delete('my-key', '/');
+      // this.sharedService.Loginname = undefined;
+      // this.sharedService.isLoggedin = false;
+      // this.sharedService.MyModuleName = ""
+      // this.headerName = '';
+      // this.currentlyClickedCardIndex = 0
+      // this.isMasterList = false;
+      // this.isTransactionList = false;
+      this.changepassword.nativeElement.click();
+      // this.router.navigate(['/login'], { skipLocationChange: true });
+      this.logout();
+      this.SpinnerService.hide(); 
+        } else {
+          this.notification.showError(result.description)
+          this.SpinnerService.hide();
+        } 
+        }
+        ,
+        error => {
+          this.errorHandler.handleError(error);
+          this.SpinnerService.hide();
+        }
+        )
+      
+    }
 
 }

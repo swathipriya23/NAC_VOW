@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  apiURL: 'http://143.110.244.51:8189/',
-  // apiURL: 'http://192.168.1.5:8000/', 
+  // apiURL: 'http://143.110.244.51:8189/',
+  apiURL: 'http://127.0.0.1:8000/',
+  NACURL: 'http://127.0.0.1:8001/', 
   cmsapiURL: 'http://143.110.244.51:8188/',    
   // cmsapiURL: 'http://192.168.1.36:8000/', 
   apiToken:'',

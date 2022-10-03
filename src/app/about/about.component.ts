@@ -71,6 +71,15 @@ export class AboutComponent implements OnInit {
         this.router.navigate(['projectdetails/projectsummary']);
         return true;
       } 
+      if (memoUrl === "/vendor") {
+        // console.log("module url data", module.url)
+        // this.vowShareService.projectscreen_entityID.next(this.entity_ID)
+        // this.vowShareService.projectcreen_loginResult.next(this.loginResult)
+        this.router.navigate(['atma/vendorView']);
+      //  this.router.navigate(['projectdetails/projectsummary']);
+        // console.log("module url data", module.name)
+        return true;
+      }
     })
   }
 
